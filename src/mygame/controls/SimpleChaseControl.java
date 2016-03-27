@@ -2,16 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mygame;
+package mygame.controls;
 
+import mygame.controls.PlayerControl;
+import mygame.interfaces.IMeasures;
 import com.jme3.bullet.control.BetterCharacterControl;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
+import mygame.util.Constants;
+import mygame.util.Measures;
 
 /**
  *
@@ -21,7 +23,6 @@ public class SimpleChaseControl extends AbstractControl implements IMeasures {
 
     public final static float SPEED = 1f;
     public static final boolean CHASE = true;
-    private boolean initialized = false;
 
     public SimpleChaseControl(Spatial spatial, PlayerControl player) {
         this.spatial = spatial;
@@ -32,7 +33,7 @@ public class SimpleChaseControl extends AbstractControl implements IMeasures {
     }
 
     public Measures getMeasures() {
-        return spatial.getUserData(UserData.MEASURES);
+        return spatial.getUserData(Constants.UserData.MEASURES);
     }
 
     public void setPlayerControl(PlayerControl player) {
@@ -44,19 +45,19 @@ public class SimpleChaseControl extends AbstractControl implements IMeasures {
     }
 
     public void setSpeed(float speed) {
-        spatial.setUserData(UserData.SPEED, speed);
+        spatial.setUserData(Constants.UserData.SPEED, speed);
     }
 
     public float getSpeed() {
-        return spatial.getUserData(UserData.SPEED);
+        return spatial.getUserData(Constants.UserData.SPEED);
     }
 
     public void setChase(boolean chase) {
-        spatial.setUserData(UserData.CHASE, chase);
+        spatial.setUserData(Constants.UserData.CHASE, chase);
     }
 
     public boolean getChase() {
-        return spatial.getUserData(UserData.CHASE);
+        return spatial.getUserData(Constants.UserData.CHASE);
     }
 
     @Override
@@ -80,7 +81,9 @@ public class SimpleChaseControl extends AbstractControl implements IMeasures {
             
 
             spatial.getControl(BetterCharacterControl.class).setWalkDirection(new Vector3f(moveX, 0f, moveZ));
-            System.out.println(spatial.getControl(BetterCharacterControl.class ).getWalkDirection() );
+            
+            //System.out.println(spatial.getControl(BetterCharacterControl.class ).getWalkDirection() );
+                  
             spatial.getControl(BetterCharacterControl.class).setViewDirection(
                     spatial.getControl(BetterCharacterControl.class).
                     getWalkDirection().mult(new Vector3f(-1f, 1f, -1f)));

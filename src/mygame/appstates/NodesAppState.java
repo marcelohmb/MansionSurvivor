@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mygame;
+package mygame.appstates;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.scene.Node;
+import mygame.util.Constants;
 
 /**
  *
@@ -17,29 +18,23 @@ import com.jme3.scene.Node;
 public class NodesAppState extends AbstractAppState {
 
     private Node playerNode;
-    private SimpleApplication app;
+    private Node enemyNode;
     private Node rootNode;
     private Node guiNode;
-    
+
     // Initialize all exclusive ndoes
-    public NodesAppState(){
-        playerNode = new Node(UserData.PLAYER_NODE);
+    public NodesAppState() {
+        playerNode = new Node(Constants.UserData.PLAYER_NODE);
+        enemyNode = new Node(Constants.UserData.ENEMY_NODE);
     }
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-        this.app = (SimpleApplication) app;
-
+        SimpleApplication simpleApp = (SimpleApplication) app;
         // Get nodes
-        rootNode = this.app.getRootNode();
-        guiNode = this.app.getGuiNode();
-
-        // Attach nodes in root node or gui node
-        rootNode.attachChild(playerNode);
-
-
-
+        rootNode = simpleApp.getRootNode();
+        guiNode = simpleApp.getGuiNode();
     }
 
     public Node getPlayerNode() {
@@ -52,5 +47,9 @@ public class NodesAppState extends AbstractAppState {
 
     public Node getGuiNode() {
         return guiNode;
+    }
+
+    public Node getEnemyNode() {
+        return enemyNode;
     }
 }

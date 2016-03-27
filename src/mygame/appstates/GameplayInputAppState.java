@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mygame;
+package mygame.appstates;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
@@ -12,18 +12,18 @@ import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.Trigger;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import mygame.util.Constants;
+import mygame.controls.PlayerControl;
 
 /**
  *
  * @author GAMEOVER
  */
-public class GameplayControlsAppState extends AbstractAppState {
+public class GameplayInputAppState extends AbstractAppState {
 
     /*Gives access to the input of the game */
     private InputManager inputManager;
@@ -61,8 +61,8 @@ public class GameplayControlsAppState extends AbstractAppState {
         // Receive and set valeus
         super.initialize(stateManager, app);
         this.app = (SimpleApplication) app;
-        playerNode = (Node) this.app.getRootNode().getChild(UserData.PLAYER_NODE);
-        player = playerNode.getChild(UserData.PLAYER);
+        playerNode = (Node) this.app.getRootNode().getChild(Constants.UserData.PLAYER_NODE);
+        player = playerNode.getChild(Constants.UserData.PLAYER);
         playerPhysics = player.getControl(BetterCharacterControl.class);
         playerControl = player.getControl(PlayerControl.class);
         isRunning = true;
@@ -70,42 +70,43 @@ public class GameplayControlsAppState extends AbstractAppState {
 
         //Set mapping
         inputManager = app.getInputManager();
-        inputManager.addMapping(Mapping.UP, new KeyTrigger(KeyInput.KEY_UP),
+        inputManager.addMapping(Constants.Mapping.UP, new KeyTrigger(KeyInput.KEY_UP),
                 new KeyTrigger(KeyInput.KEY_W));
-        inputManager.addMapping(Mapping.DOWN, new KeyTrigger(KeyInput.KEY_DOWN),
+        inputManager.addMapping(Constants.Mapping.DOWN, new KeyTrigger(KeyInput.KEY_DOWN),
                 new KeyTrigger(KeyInput.KEY_S));
-        inputManager.addMapping(Mapping.LEFT, new KeyTrigger(KeyInput.KEY_LEFT),
+        inputManager.addMapping(Constants.Mapping.LEFT, new KeyTrigger(KeyInput.KEY_LEFT),
                 new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping(Mapping.RIGHT, new KeyTrigger(KeyInput.KEY_RIGHT),
+        inputManager.addMapping(Constants.Mapping.RIGHT, new KeyTrigger(KeyInput.KEY_RIGHT),
                 new KeyTrigger(KeyInput.KEY_D));
 
         // Add listeners here
-        inputManager.addListener(Movement, Mapping.UP, Mapping.DOWN, Mapping.LEFT, Mapping.RIGHT);
+        inputManager.addListener(Movement, Constants.Mapping.UP, Constants.Mapping.DOWN,
+                Constants.Mapping.LEFT, Constants.Mapping.RIGHT);
 
     }
     private ActionListener Movement = new ActionListener() {
         public void onAction(String name, boolean isPressed, float tpf) {
 
             if (isRunning) {
-                if (name.equals(Mapping.LEFT)) {
+                if (name.equals(Constants.Mapping.LEFT)) {
                     if (isPressed) {
                         playerMove.setX(playerControl.getSpeed());
                     } else {
                         playerMove.setX(0f);
                     }
-                } else if (name.equals(Mapping.RIGHT)) {
+                } else if (name.equals(Constants.Mapping.RIGHT)) {
                     if (isPressed) {
                         playerMove.setX(playerControl.getSpeed() * -1);
                     } else {
                         playerMove.setX(0f);
                     }
-                } else if (name.equals(Mapping.UP)) {
+                } else if (name.equals(Constants.Mapping.UP)) {
                     if (isPressed) {
                         playerMove.setZ(playerControl.getSpeed());
                     } else {
                         playerMove.setZ(0f);
                     }
-                } else if (name.equals(Mapping.DOWN)) {
+                } else if (name.equals(Constants.Mapping.DOWN)) {
                     if (isPressed) {
                         playerMove.setZ(playerControl.getSpeed() * -1f);
                     } else {
