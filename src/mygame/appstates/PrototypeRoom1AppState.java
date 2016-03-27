@@ -32,17 +32,12 @@ public class PrototypeRoom1AppState extends ScenarioAppState {
         super.initialize(stateManager, app);     
 
         
-         // Creates game createAFloor
         floor = createAFloor(assetManager, new Vector3f(0f, -2f, 10f));
-        BoxCollisionShape floorShape = new BoxCollisionShape(new Vector3f(33f, 1f, 33f));
-        floorPhysics = new RigidBodyControl(floorShape, 0.0f);
-        floor.addControl(floorPhysics);
-        nodes.getRootNode().attachChild(floor);
-        bulletAppState.getPhysicsSpace().add(floorPhysics);
+        
         
         nodes.getRootNode().attachChild(nodes.getEnemyNode().getChild(Constants.UserData.FRANKESTEIN));
  
-        // Adding a light light to make 3d models visible
+
         PointLight light = new PointLight();
         light.setColor(ColorRGBA.White);
         light.setRadius(Float.POSITIVE_INFINITY);

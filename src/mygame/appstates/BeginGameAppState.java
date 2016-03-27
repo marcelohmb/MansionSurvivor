@@ -54,6 +54,9 @@ public class BeginGameAppState extends AbstractAppState {
             
         prototypeRoom1AppState = new PrototypeRoom1AppState();
         this.stateManager.attach(prototypeRoom1AppState);
+        
+        MansionEntranceAppState mansionEntranceAppState = new MansionEntranceAppState();
+        this.stateManager.attach(mansionEntranceAppState);
 
         gameplayInputAppState = new GameplayInputAppState();
         this.stateManager.attach(gameplayInputAppState);
