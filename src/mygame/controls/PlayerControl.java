@@ -19,8 +19,8 @@ import mygame.util.Constants;
  * @author GAMEOVER
  */
 public class PlayerControl extends AbstractControl {
-    
-    private static final float DEFAULT_SPEED = 20f;
+
+    private static final float DEFAULT_SPEED = 2f;
 
     private void setSpeed(float speed) {
         spatial.setUserData(Constants.UserData.SPEED, speed);
@@ -29,33 +29,29 @@ public class PlayerControl extends AbstractControl {
     public float getSpeed() {
         return spatial.getUserData(Constants.UserData.SPEED);
     }
-    
-    public void setWalkDirection(Vector3f walkDirection){
+
+    public void setWalkDirection(Vector3f walkDirection) {
         spatial.setUserData(Constants.UserData.WALK_DIRECTION, walkDirection);
     }
-    
-    public Vector3f getWalkDirection(){
+
+    public Vector3f getWalkDirection() {
         return spatial.getUserData(Constants.UserData.WALK_DIRECTION);
     }
 
-    
     public PlayerControl(Spatial s) {
         this.spatial = s;
         setSpeed(DEFAULT_SPEED);
         setWalkDirection(Vector3f.ZERO);
-        
+
     }
 
     @Override
     protected void controlUpdate(float tpf) {
-      if(getWalkDirection() != Vector3f.ZERO){
-          System.out.println(spatial.getLocalTranslation());
-      }
+
+            System.out.println("PLAYER = " + spatial.getLocalTranslation());
     }
 
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
     }
-
-
 }

@@ -17,9 +17,11 @@ import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Quad;
+import com.jme3.scene.shape.StripBox;
 
 /**
  *
@@ -31,7 +33,7 @@ public class ScenarioAppState extends AbstractAppState {
     protected static AppStateManager stateManager;
     protected static BulletAppState bulletAppState;
     protected static AssetManager assetManager;
-    protected Spatial player;
+    protected Node playerNode;
     public static final Vector3f FLOOR_MEASURES = new Vector3f(200F, 0f, 200f);
 
     public ScenarioAppState() {
@@ -45,7 +47,7 @@ public class ScenarioAppState extends AbstractAppState {
         bulletAppState = stateManager.getState(BulletAppState.class);
         ScenarioAppState.stateManager = stateManager;
         assetManager = simpleApp.getAssetManager();
-        player = nodes.getPlayerNode();
+        playerNode = nodes.getPlayerNode();
     }
 
     protected static Geometry createAFloor(AssetManager assetManager, Vector3f pos) {
@@ -66,18 +68,36 @@ public class ScenarioAppState extends AbstractAppState {
 
     protected static Geometry createWall(AssetManager assetManager, float width, float height, Vector3f pos, Vector3f r) {
 
-        Box wallShape = new Box(width, height, 0f);
+        Box wallShape = new Box(width / 2, height / 2, 0f);
         Geometry wall = new Geometry("wall", wallShape);
         Material wallMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         wallMat.setColor("Color", ColorRGBA.White);
         wall.setMaterial(wallMat);
-        wall.setLocalTranslation(pos);
+        wall.setLocalTranslation(pos.add(new Vector3f(width / 2, height / 2, 0f)));
         wall.rotate(r.x, r.y, r.z);
-        BoxCollisionShape wallCollisionShape = new BoxCollisionShape(new Vector3f(width, height, 0f));
+        BoxCollisionShape wallCollisionShape = new BoxCollisionShape(new Vector3f(width / 2, height / 2, 0f));
         RigidBodyControl wallPhysics = new RigidBodyControl(wallCollisionShape, 0.0f);
         wall.addControl(wallPhysics);
         bulletAppState.getPhysicsSpace().add(wallPhysics);
         nodes.getRootNode().attachChild(wall);
         return wall;
     }
+    
+    protected static Geometry createRoom(AssetManager assetManager, float width, float height, float size, Vector3f pos){
+        Box roomShape = new Box(width,height,size);
+        Geometry room = new Geometry("room", roomShape);
+        room.setLocalTranslation(Vector3f.ZERO);
+        Material roomMat = new Material(assetManager,"Common/MatDefs/Misc/Unshaded.j3md");
+        roomMat.setColor("Color", ColorRGBA.White);
+        room.setMaterial(roomMat);
+        room.setLocalTranslation(pos);
+        BoxCollisionShape roomCollisionShape = new BoxCollisionShape(new Vector3f(width, height, size));
+        RigidBodyControl roomPhysics = new RigidBodyControl(roomCollisionShape, 0.0f);
+        room.addControl(roomPhysics);
+        bulletAppState.getPhysicsSpace().add(roomPhysics);
+        nodes.getRootNode().attachChild(room);
+        return room;
+    }
+    
+    
 }

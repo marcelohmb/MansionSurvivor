@@ -42,11 +42,11 @@ public class CharactersAppState extends AbstractAppState {
         PlayerControl playerControl = new PlayerControl(player);
         player.setName(Constants.UserData.PLAYER);
         player.setLocalScale(1.50f);
-        player.setLocalTranslation(0f, 0f, 0f);
         BetterCharacterControl playerPhysics = new BetterCharacterControl(1.4f, 2.8f, 0.1f);
         playerPhysics.setJumpForce(Vector3f.ZERO);
         player.addControl(playerPhysics);
         player.addControl(playerControl);
+        playerPhysics.setViewDirection(new Vector3f(0f, 0f, -1f));
         bulletAppState.getPhysicsSpace().add(playerPhysics);
         nodesAppState.getPlayerNode().attachChild(player);
         nodesAppState.getRootNode().attachChild(nodesAppState.getPlayerNode()); // Use this to show things in scene

@@ -9,6 +9,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.bullet.control.BetterCharacterControl;
+import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
@@ -16,6 +17,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 import mygame.util.Constants;
 import mygame.controls.PlayerControl;
 
@@ -54,6 +56,10 @@ public class GameplayInputAppState extends AbstractAppState {
      * we can keep state of two buttons that make a diagonal movement
      */
     private Vector3f playerMove = new Vector3f();
+    /**
+     * Used in debugging
+     */
+    private FlyByCamera flyCam;
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
@@ -66,6 +72,7 @@ public class GameplayInputAppState extends AbstractAppState {
         playerPhysics = player.getControl(BetterCharacterControl.class);
         playerControl = player.getControl(PlayerControl.class);
         isRunning = true;
+        flyCam = stateManager.getState(CameraAppState.class).getFlyByCamera();
 
 
         //Set mapping
@@ -84,31 +91,38 @@ public class GameplayInputAppState extends AbstractAppState {
                 Constants.Mapping.LEFT, Constants.Mapping.RIGHT);
 
     }
+    private ActionListener Debugging = new ActionListener() {
+        public void onAction(String name, boolean isPressed, float tpf) {
+            if (isRunning) {
+                // Put verification's of debug input here
+            }
+        }
+    };
     private ActionListener Movement = new ActionListener() {
         public void onAction(String name, boolean isPressed, float tpf) {
 
             if (isRunning) {
-                if (name.equals(Constants.Mapping.LEFT)) {
+                if (name.equals(Constants.Mapping.RIGHT)) {
                     if (isPressed) {
-                        playerMove.setX(playerControl.getSpeed());
+                        playerMove.setX(playerControl.getSpeed() );
                     } else {
                         playerMove.setX(0f);
                     }
-                } else if (name.equals(Constants.Mapping.RIGHT)) {
+                } else if (name.equals(Constants.Mapping.LEFT)) {
                     if (isPressed) {
-                        playerMove.setX(playerControl.getSpeed() * -1);
+                        playerMove.setX(playerControl.getSpeed()* -1f);
                     } else {
                         playerMove.setX(0f);
                     }
                 } else if (name.equals(Constants.Mapping.UP)) {
                     if (isPressed) {
-                        playerMove.setZ(playerControl.getSpeed());
+                        playerMove.setZ(playerControl.getSpeed()* -1f);
                     } else {
                         playerMove.setZ(0f);
                     }
                 } else if (name.equals(Constants.Mapping.DOWN)) {
                     if (isPressed) {
-                        playerMove.setZ(playerControl.getSpeed() * -1f);
+                        playerMove.setZ(playerControl.getSpeed() );
                     } else {
                         playerMove.setZ(0f);
                     }
