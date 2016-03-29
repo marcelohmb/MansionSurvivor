@@ -32,6 +32,7 @@ public class ScenarioAppState extends AbstractAppState {
     protected static BulletAppState bulletAppState;
     protected static AssetManager assetManager;
     protected Spatial player;
+    public static final Vector3f FLOOR_MEASURES = new Vector3f(200F, 0f, 200f);
 
     public ScenarioAppState() {
     }
@@ -48,13 +49,14 @@ public class ScenarioAppState extends AbstractAppState {
     }
 
     protected static Geometry createAFloor(AssetManager assetManager, Vector3f pos) {
-        Box floorBox = new Box(33f, 1f, 33f);
+        Box floorBox = new Box(FLOOR_MEASURES.x, FLOOR_MEASURES.y,FLOOR_MEASURES.z);
         Geometry floor = new Geometry("floor", floorBox);
         Material orangeMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         orangeMat.setColor("Color", ColorRGBA.Orange);
         floor.setMaterial(orangeMat);
         floor.setLocalTranslation(pos);
-        BoxCollisionShape floorShape = new BoxCollisionShape(new Vector3f(33f, 1f, 33f));
+        BoxCollisionShape floorShape = new BoxCollisionShape(new Vector3f(FLOOR_MEASURES.x, 
+                FLOOR_MEASURES.y, FLOOR_MEASURES.z));
         RigidBodyControl floorPhysics = new RigidBodyControl(floorShape, 0.0f);
         floor.addControl(floorPhysics);
         bulletAppState.getPhysicsSpace().add(floorPhysics);
@@ -62,16 +64,17 @@ public class ScenarioAppState extends AbstractAppState {
         return floor;
     }
 
-    protected static Geometry createWall(AssetManager assetManager, float width, float height, Vector3f pos) {
-        
-        Box wallShape = new Box(10f, 10f,0f);
+    protected static Geometry createWall(AssetManager assetManager, float width, float height, Vector3f pos, Vector3f r) {
+
+        Box wallShape = new Box(width, height, 0f);
         Geometry wall = new Geometry("wall", wallShape);
         Material wallMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         wallMat.setColor("Color", ColorRGBA.White);
         wall.setMaterial(wallMat);
-        wall.setLocalTranslation(0f, 10f, 0f);
-        BoxCollisionShape wallCollisionShape = new BoxCollisionShape(new Vector3f(width / 2f, height /2f, 0f));
-        RigidBodyControl wallPhysics = new RigidBodyControl(wallCollisionShape,  0.0f);
+        wall.setLocalTranslation(pos);
+        wall.rotate(r.x, r.y, r.z);
+        BoxCollisionShape wallCollisionShape = new BoxCollisionShape(new Vector3f(width, height, 0f));
+        RigidBodyControl wallPhysics = new RigidBodyControl(wallCollisionShape, 0.0f);
         wall.addControl(wallPhysics);
         bulletAppState.getPhysicsSpace().add(wallPhysics);
         nodes.getRootNode().attachChild(wall);

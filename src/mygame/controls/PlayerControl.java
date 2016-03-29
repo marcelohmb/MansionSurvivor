@@ -20,7 +20,7 @@ import mygame.util.Constants;
  */
 public class PlayerControl extends AbstractControl {
     
-    private static final float DEFAULT_SPEED = 2f;
+    private static final float DEFAULT_SPEED = 20f;
 
     private void setSpeed(float speed) {
         spatial.setUserData(Constants.UserData.SPEED, speed);
@@ -48,6 +48,9 @@ public class PlayerControl extends AbstractControl {
 
     @Override
     protected void controlUpdate(float tpf) {
+      if(getWalkDirection() != Vector3f.ZERO){
+          System.out.println(spatial.getLocalTranslation());
+      }
     }
 
     @Override

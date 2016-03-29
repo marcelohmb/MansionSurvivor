@@ -32,7 +32,6 @@ public class CameraAppState extends AbstractAppState {
         target = value;
     }
 
-
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
@@ -40,15 +39,19 @@ public class CameraAppState extends AbstractAppState {
         cam = simpleApp.getCamera();
         flyCam = simpleApp.getFlyByCamera();
         flyCam.setEnabled(false);
+
     }
 
     @Override
     public void update(float tpf) {
-        if (target != null) {
+
+       if (target != null) {
             if (target.getName().equals(Constants.UserData.PLAYER)) {
-                cam.setLocation(target.getLocalTranslation().add(new Vector3f(0f, 20f, 0f)));
+                cam.setLocation(target.getLocalTranslation().add(new Vector3f(0f,
+                        20f, 0f)));
                 cam.lookAt(target.getLocalTranslation(), Vector3f.ZERO);
             }
         }
+
     }
 }

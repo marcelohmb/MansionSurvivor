@@ -16,7 +16,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import mygame.util.Constants;
-import mygame.util.Measures;
 import mygame.controls.PlayerControl;
 import mygame.controls.SimpleChaseControl;
 
@@ -58,8 +57,7 @@ public class CharactersAppState extends AbstractAppState {
         Node frankestein = (Node) assetManager.loadModel("Models/Ninja/Ninja.mesh.xml");
         frankestein.setName(Constants.UserData.FRANKESTEIN);
         frankestein.scale(0.025f, 0.025f, 0.025f);
-        Measures.setMeasures(frankestein, new Measures(1f, 2f, 2f));
-        frankestein.addControl(new SimpleChaseControl(frankestein, playerControl));
+        frankestein.addControl(new SimpleChaseControl(frankestein, new  Vector3f(1f, 2f, 2f),playerControl));
         frankestein.getControl(SimpleChaseControl.class).setChase(true);
         frankestein.setLocalTranslation(0f, 0f, 10f);
         BetterCharacterControl frankesteinPhysics = new BetterCharacterControl(0.9f, 1.8f, 0.1f);

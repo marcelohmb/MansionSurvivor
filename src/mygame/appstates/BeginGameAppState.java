@@ -60,6 +60,7 @@ public class BeginGameAppState extends AbstractAppState {
 
         gameplayInputAppState = new GameplayInputAppState();
         this.stateManager.attach(gameplayInputAppState);
+        
     }
 
     @Override
