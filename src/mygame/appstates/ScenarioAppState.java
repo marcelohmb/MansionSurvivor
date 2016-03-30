@@ -22,6 +22,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Quad;
 import com.jme3.scene.shape.StripBox;
+import mygame.util.Direction;
 
 /**
  *
@@ -51,13 +52,13 @@ public class ScenarioAppState extends AbstractAppState {
     }
 
     protected static Geometry createAFloor(AssetManager assetManager, Vector3f pos) {
-        Box floorBox = new Box(FLOOR_MEASURES.x, FLOOR_MEASURES.y,FLOOR_MEASURES.z);
+        Box floorBox = new Box(FLOOR_MEASURES.x, FLOOR_MEASURES.y, FLOOR_MEASURES.z);
         Geometry floor = new Geometry("floor", floorBox);
         Material orangeMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         orangeMat.setColor("Color", ColorRGBA.Orange);
         floor.setMaterial(orangeMat);
         floor.setLocalTranslation(pos);
-        BoxCollisionShape floorShape = new BoxCollisionShape(new Vector3f(FLOOR_MEASURES.x, 
+        BoxCollisionShape floorShape = new BoxCollisionShape(new Vector3f(FLOOR_MEASURES.x,
                 FLOOR_MEASURES.y, FLOOR_MEASURES.z));
         RigidBodyControl floorPhysics = new RigidBodyControl(floorShape, 0.0f);
         floor.addControl(floorPhysics);
@@ -66,38 +67,67 @@ public class ScenarioAppState extends AbstractAppState {
         return floor;
     }
 
-    protected static Geometry createWall(AssetManager assetManager, float width, float height, Vector3f pos, Vector3f r) {
+    /** Create a wall. There's a useful NOTE:
+     - the wall will "walk" negatively starting by the origin. This means that if you are in a negative z
+     axis coordinate view, the wall will grow foward :)*/ 
+    protected static Geometry createWall(AssetManager assetManager, float width, float height, Vector3f pos, Direction d) {
+        Box wallShape;
+        BoxCollisionShape wallCollisionShape;
 
-        Box wallShape = new Box(width / 2, height / 2, 0f);
+
+        if (d == Direction.HORIZONTAL) {
+            wallShape = new Box(width / 2f, height / 2f, 0f);
+            wallCollisionShape = new BoxCollisionShape(new Vector3f(width / 2f, height / 2f, 0f));
+
+        } else {
+            wallShape = new Box(0f, height / 2f, width / 2f);
+            wallCollisionShape = new BoxCollisionShape(new Vector3f(0f, height / 2f, width / 2f));
+        }
+
         Geometry wall = new Geometry("wall", wallShape);
         Material wallMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         wallMat.setColor("Color", ColorRGBA.White);
         wall.setMaterial(wallMat);
-        wall.setLocalTranslation(pos.add(new Vector3f(width / 2, height / 2, 0f)));
-        wall.rotate(r.x, r.y, r.z);
-        BoxCollisionShape wallCollisionShape = new BoxCollisionShape(new Vector3f(width / 2, height / 2, 0f));
+        
+        if (d == Direction.HORIZONTAL) {
+            wall.setLocalTranslation(pos.add(new Vector3f(width / 2f, height / 2f, 0f)));
+        } else {
+            wall.setLocalTranslation(pos.add(new Vector3f(0f, height / 2f,  - width / 2f)));
+        }
+        
         RigidBodyControl wallPhysics = new RigidBodyControl(wallCollisionShape, 0.0f);
         wall.addControl(wallPhysics);
         bulletAppState.getPhysicsSpace().add(wallPhysics);
         nodes.getRootNode().attachChild(wall);
         return wall;
     }
-    
-    protected static Geometry createRoom(AssetManager assetManager, float width, float height, float size, Vector3f pos){
-        Box roomShape = new Box(width,height,size);
-        Geometry room = new Geometry("room", roomShape);
-        room.setLocalTranslation(Vector3f.ZERO);
-        Material roomMat = new Material(assetManager,"Common/MatDefs/Misc/Unshaded.j3md");
-        roomMat.setColor("Color", ColorRGBA.White);
-        room.setMaterial(roomMat);
-        room.setLocalTranslation(pos);
-        BoxCollisionShape roomCollisionShape = new BoxCollisionShape(new Vector3f(width, height, size));
-        RigidBodyControl roomPhysics = new RigidBodyControl(roomCollisionShape, 0.0f);
-        room.addControl(roomPhysics);
-        bulletAppState.getPhysicsSpace().add(roomPhysics);
+
+    /** Create and attach a room in the rootNode  */
+    protected static Node createRoom(AssetManager assetManager, float width, float height, float size, Vector3f leftExtreme) {
+
+
+        Geometry bottomWall = createWall(assetManager, width, height, leftExtreme, Direction.HORIZONTAL);
+
+        Geometry topWall = createWall(assetManager, width, height,
+                leftExtreme.add(new Vector3f(0f, 0f, -size)), Direction.HORIZONTAL);
+
+        Geometry leftWall = createWall(assetManager, size, height, leftExtreme, Direction.VERTICAL);
+
+        Geometry rightWall = createWall(assetManager, size, height,
+                leftExtreme.add(new Vector3f(width, 0f, 0f)),
+                Direction.VERTICAL);
+        
+        bottomWall.setName("bottomWall");
+        topWall.setName("topWall");
+        leftWall.setName("leftWall");
+        rightWall.setName("rightWall");
+        
+        Node room = new Node();
+        room.attachChild(bottomWall);
+        room.attachChild(topWall);
+        room.attachChild(leftWall);
+        room.attachChild(rightWall);
         nodes.getRootNode().attachChild(room);
         return room;
     }
-    
-    
 }

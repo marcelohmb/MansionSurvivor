@@ -20,7 +20,7 @@ import mygame.util.Constants;
  */
 public class PlayerControl extends AbstractControl {
 
-    private static final float DEFAULT_SPEED = 2f;
+    private static final float DEFAULT_SPEED = 20f;
 
     private void setSpeed(float speed) {
         spatial.setUserData(Constants.UserData.SPEED, speed);
