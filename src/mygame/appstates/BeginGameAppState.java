@@ -57,6 +57,9 @@ public class BeginGameAppState extends AbstractAppState {
         
         MansionEntranceAppState mansionEntranceAppState = new MansionEntranceAppState();
         this.stateManager.attach(mansionEntranceAppState);
+        
+        //MainCorridorAppState mainCorridorAppState = new MainCorridorAppState();
+        //this.stateManager.attach(mainCorridorAppState);
 
         gameplayInputAppState = new GameplayInputAppState();
         this.stateManager.attach(gameplayInputAppState);

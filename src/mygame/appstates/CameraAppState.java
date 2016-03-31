@@ -58,7 +58,7 @@ public class CameraAppState extends AbstractAppState {
             if (target != null) {
                 if (target.getName().equals(Constants.UserData.PLAYER)) {
 
-                    cam.setLocation(new Vector3f(target.getLocalTranslation().getX(), 20f,
+                    cam.setLocation(new Vector3f(target.getLocalTranslation().getX(), 15f,
                             target.getLocalTranslation().getZ()));
                     cam.lookAt(target.getLocalTranslation(), new Vector3f(0f, 0f, -1f));
                     if (showPos) {

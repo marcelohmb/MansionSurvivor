@@ -32,11 +32,10 @@ public class PrototypeRoom1AppState extends ScenarioAppState {
         super.initialize(stateManager, app);     
 
         
-        floor = createAFloor(assetManager, new Vector3f(0f, -2f, 10f));
-        
-        
+        floor = createGameFloor(assetManager, new Vector3f(0f, 0f, 10f));
+                
         nodes.getRootNode().attachChild(nodes.getEnemyNode().getChild(Constants.UserData.FRANKESTEIN));
- 
+               
 
         PointLight light = new PointLight();
         light.setColor(ColorRGBA.White);

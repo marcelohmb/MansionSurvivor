@@ -57,7 +57,7 @@ public class CharactersAppState extends AbstractAppState {
         Node frankestein = (Node) assetManager.loadModel("Models/Ninja/Ninja.mesh.xml");
         frankestein.setName(Constants.UserData.FRANKESTEIN);
         frankestein.scale(0.025f, 0.025f, 0.025f);
-        frankestein.addControl(new SimpleChaseControl(frankestein, new  Vector3f(1f, 2f, 2f),playerControl));
+        frankestein.addControl(new SimpleChaseControl(frankestein, new  Vector3f(1f, 2f, 0.1f),playerControl));
         frankestein.getControl(SimpleChaseControl.class).setChase(true);
         frankestein.setLocalTranslation(0f, 0f, 10f);
         BetterCharacterControl frankesteinPhysics = new BetterCharacterControl(0.9f, 1.8f, 0.1f);
