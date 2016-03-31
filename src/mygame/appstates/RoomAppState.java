@@ -24,7 +24,7 @@ public abstract class RoomAppState extends ScenarioAppState {
     protected Vector3f roomLeftExtreme;
     protected Vector3f roomPlayerPosition;
 
-    public RoomAppState(float roomWidth, float roomSize, float roomHeight, Vector3f roomLeftExtreme,
+    public RoomAppState(float roomWidth, float roomHeight, float roomSize,  Vector3f roomLeftExtreme,
             Vector3f playerPos) {
         this.roomWidth = roomWidth;
         this.roomHeight = roomHeight;

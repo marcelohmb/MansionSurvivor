@@ -45,7 +45,7 @@ public class CameraAppState extends AbstractAppState {
         cam = simpleApp.getCamera();
         flyCam = simpleApp.getFlyByCamera();
         flyCam.setEnabled(false);
-        cam.setRotation(new Quaternion(1f, 0f, 0f, 1f));
+        //cam.setRotation(new Quaternion(1f, 0f, 0f, 1f));
 
 
     }

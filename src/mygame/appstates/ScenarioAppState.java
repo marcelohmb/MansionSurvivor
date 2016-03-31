@@ -134,27 +134,28 @@ public class ScenarioAppState extends AbstractAppState {
 
         Geometry topWall = createWall(assetManager, width, height,
                 leftExtreme.add(new Vector3f(0f, 0f, -size)), Direction.HORIZONTAL);
+        
 
         Geometry leftWall = createWall(assetManager, size, height, leftExtreme, Direction.VERTICAL);
 
         Geometry rightWall = createWall(assetManager, size, height,
                 leftExtreme.add(new Vector3f(width, 0f, 0f)),
                 Direction.VERTICAL);
-        
-        Geometry floor = createAFlat(assetManager, width, 1f, size, leftExtreme.add(new Vector3f(width / 2f, -1f, -size / 2f)));
+     
+       // Geometry floor = createAFlat(assetManager, width, 1f, size, leftExtreme.add(new Vector3f(width / 2f, -1f, -size / 2f)));
 
         bottomWall.setName("bottomWall");
         topWall.setName("topWall");
         leftWall.setName("leftWall");
         rightWall.setName("rightWall");
-        floor.setName("floor");
+        //floor.setName("floor");
 
         Node room = new Node();
         room.attachChild(bottomWall);
         room.attachChild(topWall);
         room.attachChild(leftWall);
         room.attachChild(rightWall);
-        room.attachChild(floor);
+        //room.attachChild(floor);
         nodes.getRootNode().attachChild(room);
         return room;
     }

@@ -15,8 +15,8 @@ import com.jme3.math.Vector3f;
 public class MansionEntranceAppState extends RoomAppState {
 
     public MansionEntranceAppState() {
-        //super(18f, 10f, 9f, Vector3f.ZERO, new Vector3f(0f, 0f, 0f));
-        super(18f, 30f, 9f , Vector3f.ZERO, Vector3f.ZERO);
+        super(36f, 20f, 18f, Vector3f.ZERO, new Vector3f(0f, 0f, 0f));
+       
     }
 
     @Override
