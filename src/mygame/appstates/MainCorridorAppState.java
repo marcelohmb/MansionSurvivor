@@ -13,17 +13,20 @@ import com.jme3.scene.Node;
  *
  * @author GAMEOVER
  */
-public class MainCorridorAppState extends ScenarioAppState {
+public class MainCorridorAppState extends RoomAppState {
 
-    float roomWidth = 9f;
-    float roomSize = 9f;
-    float roomHeight = 20f;
-    Node room;
-    Vector3f roomLeftExtremetiy = new Vector3f(9f, 0f, -9f);
+    private static final float DEFAULT_WIDTH = 18f;
+    private static final float DEFAULT_HEIGHT = 20f;
+    private static final float DEFAULT_SIZE = 36;
+    private static final Vector3f DEFAULT_LOCATION = new Vector3f(18f,0f,18f);
+
+    
+    public MainCorridorAppState() {
+        super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_LOCATION , DEFAULT_LOCATION.add(new Vector3f(DEFAULT_WIDTH / 2f, 0f, -DEFAULT_SIZE / 2f)));
+    }
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-        room = createARoom(assetManager, roomWidth, roomHeight, roomSize, roomLeftExtremetiy);
     }
 }

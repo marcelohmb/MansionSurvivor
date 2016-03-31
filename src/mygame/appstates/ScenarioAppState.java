@@ -120,8 +120,8 @@ public class ScenarioAppState extends AbstractAppState {
         }
 
         RigidBodyControl wallPhysics = new RigidBodyControl(wallCollisionShape, 0.0f);
-        wall.addControl(wallPhysics);
-        bulletAppState.getPhysicsSpace().add(wallPhysics);
+        //wall.addControl(wallPhysics);
+        //bulletAppState.getPhysicsSpace().add(wallPhysics); Commented only due TEST REASONS
         nodes.getRootNode().attachChild(wall);
         return wall;
     }

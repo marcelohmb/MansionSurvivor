@@ -55,16 +55,18 @@ public class BeginGameAppState extends AbstractAppState {
         prototypeRoom1AppState = new PrototypeRoom1AppState();
         this.stateManager.attach(prototypeRoom1AppState);
         
-        MansionEntranceAppState mansionEntranceAppState = new MansionEntranceAppState();
-        this.stateManager.attach(mansionEntranceAppState);
+        //MansionEntranceAppState mansionEntranceAppState = new MansionEntranceAppState();
+        //this.stateManager.attach(mansionEntranceAppState);
         
-        //MainCorridorAppState mainCorridorAppState = new MainCorridorAppState();
-        //this.stateManager.attach(mainCorridorAppState);
+        MainCorridorAppState mainCorridorAppState = new MainCorridorAppState();
+        this.stateManager.attach(mainCorridorAppState);
 
         gameplayInputAppState = new GameplayInputAppState();
         this.stateManager.attach(gameplayInputAppState);
         
     }
+    
+    
 
     @Override
     public void update(float tpf) {
