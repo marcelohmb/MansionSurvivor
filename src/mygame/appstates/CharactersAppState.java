@@ -24,7 +24,7 @@ import mygame.controls.SimpleChaseControl;
  * @author GAMEOVER
  */
 public class CharactersAppState extends AbstractAppState {
-    
+
     private AssetManager assetManager;
     private BulletAppState bulletAppState;
     private NodesAppState nodesAppState;
@@ -36,28 +36,30 @@ public class CharactersAppState extends AbstractAppState {
         assetManager = simpleApp.getAssetManager();
         bulletAppState = stateManager.getState(BulletAppState.class);
         nodesAppState = stateManager.getState(NodesAppState.class);
-        
+
         // Player
         Spatial player = (Node) assetManager.loadModel("Models/Jaime/Jaime.j3o");
         PlayerControl playerControl = new PlayerControl(player);
         player.setName(Constants.UserData.PLAYER);
         player.setLocalScale(1.50f);
         BetterCharacterControl playerPhysics = new BetterCharacterControl(1.4f, 2.8f, 0.1f);
-        playerPhysics.setJumpForce(Vector3f.ZERO);
         player.addControl(playerPhysics);
         player.addControl(playerControl);
         playerPhysics.setViewDirection(new Vector3f(0f, 0f, -1f));
         bulletAppState.getPhysicsSpace().add(playerPhysics);
         nodesAppState.getPlayerNode().attachChild(player);
+        playerPhysics.setJumpForce(Vector3f.ZERO);
         nodesAppState.getRootNode().attachChild(nodesAppState.getPlayerNode()); // Use this to show things in scene
         CameraAppState cameraAppState = stateManager.getState(CameraAppState.class);
         cameraAppState.setTarget(player);
+
+
 
         // Frankestein
         Node frankestein = (Node) assetManager.loadModel("Models/Ninja/Ninja.mesh.xml");
         frankestein.setName(Constants.UserData.FRANKESTEIN);
         frankestein.scale(0.025f, 0.025f, 0.025f);
-        frankestein.addControl(new SimpleChaseControl(frankestein, new  Vector3f(1f, 2f, 0.1f),playerControl));
+        frankestein.addControl(new SimpleChaseControl(frankestein, new Vector3f(1f, 2f, 0.1f), playerControl));
         frankestein.getControl(SimpleChaseControl.class).setChase(true);
         frankestein.setLocalTranslation(0f, 0f, 10f);
         BetterCharacterControl frankesteinPhysics = new BetterCharacterControl(0.9f, 1.8f, 0.1f);

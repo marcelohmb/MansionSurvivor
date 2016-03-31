@@ -23,6 +23,7 @@ import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Quad;
 import com.jme3.scene.shape.StripBox;
 import mygame.util.Direction;
+import mygame.util.Constants;
 
 /**
  *
@@ -34,7 +35,7 @@ public class ScenarioAppState extends AbstractAppState {
     protected static AppStateManager stateManager;
     protected static BulletAppState bulletAppState;
     protected static AssetManager assetManager;
-    protected static Node playerNode;
+    protected static Spatial player;
     public static final Vector3f FLOOR_MEASURES = new Vector3f(200F, 0f, 200f);
 
     public ScenarioAppState() {
@@ -48,7 +49,8 @@ public class ScenarioAppState extends AbstractAppState {
         bulletAppState = stateManager.getState(BulletAppState.class);
         ScenarioAppState.stateManager = stateManager;
         assetManager = simpleApp.getAssetManager();
-        playerNode = nodes.getPlayerNode();
+        Node playerNode = nodes.getPlayerNode();
+        player = playerNode.getChild(Constants.UserData.PLAYER);
     }
 
     /* */

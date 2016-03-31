@@ -24,7 +24,6 @@ public class CameraAppState extends AbstractAppState {
     private Camera cam;
     private FlyByCamera flyCam;
     private Spatial target;
-    private boolean showPos = true;
 
     public Spatial getTarget() {
         return target;
@@ -45,9 +44,6 @@ public class CameraAppState extends AbstractAppState {
         cam = simpleApp.getCamera();
         flyCam = simpleApp.getFlyByCamera();
         flyCam.setEnabled(false);
-        //cam.setRotation(new Quaternion(1f, 0f, 0f, 1f));
-
-
     }
 
     @Override
@@ -58,13 +54,9 @@ public class CameraAppState extends AbstractAppState {
             if (target != null) {
                 if (target.getName().equals(Constants.UserData.PLAYER)) {
 
-                    cam.setLocation(new Vector3f(target.getLocalTranslation().getX(), 15f,
+                    cam.setLocation(new Vector3f(target.getLocalTranslation().getX(), 20f,
                             target.getLocalTranslation().getZ()));
                     cam.lookAt(target.getLocalTranslation(), new Vector3f(0f, 0f, -1f));
-                    if (showPos) {
-                        System.out.println("CAMERA LOCATION = " + cam.getLocation());
-                        System.out.println("CAMERA LOOK AT =" + target.getLocalTranslation());
-                    }
                 }
             }
 

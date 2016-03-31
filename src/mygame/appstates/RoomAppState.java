@@ -10,6 +10,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 import mygame.util.Constants;
+import mygame.controls.PlayerControl;
 
 /**
  *
@@ -36,7 +37,7 @@ public abstract class RoomAppState extends ScenarioAppState {
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-        playerNode.getChild(Constants.UserData.PLAYER).setLocalTranslation(roomPlayerPosition);
+        player.getControl(PlayerControl.class).setPosition(roomPlayerPosition);
         room = createARoom(assetManager, roomWidth, roomHeight, roomSize, roomLeftExtreme);
     }
 }

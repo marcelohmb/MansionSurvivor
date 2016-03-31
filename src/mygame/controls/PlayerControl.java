@@ -4,6 +4,7 @@
  */
 package mygame.controls;
 
+import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
@@ -34,16 +35,27 @@ public class PlayerControl extends AbstractControl {
     public Vector3f getWalkDirection() {
         return spatial.getUserData(Constants.UserData.WALK_DIRECTION);
     }
+    
+    public void setPosition(Vector3f pos){
+        spatial.getControl(BetterCharacterControl.class).setEnabled(false);
+        spatial.setLocalTranslation(pos);
+        spatial.getControl(BetterCharacterControl.class).setEnabled(true);
+    }
+    
+    public Vector3f getPosition(Vector3f pos){
+        return spatial.getLocalTranslation();
+    }
+    
 
     public PlayerControl(Spatial s) {
         this.spatial = s;
         setSpeed(DEFAULT_SPEED);
         setWalkDirection(Vector3f.ZERO);
-
     }
 
     @Override
     protected void controlUpdate(float tpf) {
+        System.out.println("PLAYER POSITION = " + spatial.getLocalTranslation());
     }
 
     @Override

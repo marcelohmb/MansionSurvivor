@@ -12,6 +12,7 @@ import com.jme3.light.PointLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import mygame.controls.PlayerControl;
 import mygame.util.Constants;
 
 /**
@@ -35,8 +36,7 @@ public class PrototypeRoom1AppState extends ScenarioAppState {
         floor = createGameFloor(assetManager, new Vector3f(0f, 0f, 10f));
                 
         nodes.getRootNode().attachChild(nodes.getEnemyNode().getChild(Constants.UserData.FRANKESTEIN));
-               
-
+        
         PointLight light = new PointLight();
         light.setColor(ColorRGBA.White);
         light.setRadius(Float.POSITIVE_INFINITY);

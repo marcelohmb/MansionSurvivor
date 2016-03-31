@@ -7,7 +7,7 @@ package mygame.appstates;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Vector3f;
-
+import mygame.util.Constants;
 /**
  *
  * @author GAMEOVER
@@ -15,7 +15,7 @@ import com.jme3.math.Vector3f;
 public class MansionEntranceAppState extends RoomAppState {
 
     public MansionEntranceAppState() {
-        super(36f, 20f, 18f, Vector3f.ZERO, new Vector3f(0f, 0f, 0f));
+        super(36f, 20f, 18f, Vector3f.ZERO, new Vector3f(5f, 0f, -5f));
        
     }
 
