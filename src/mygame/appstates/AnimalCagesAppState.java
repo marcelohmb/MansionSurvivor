@@ -15,7 +15,7 @@ import com.jme3.math.Vector3f;
 public class AnimalCagesAppState extends RoomAppState {
 
     public static final float DEFAULT_WIDTH = 36F;
-    public static final float DEFAULT_HEIGHT = 10F;
+    public static final float DEFAULT_HEIGHT = 20F;
     public static final float DEFAULT_SIZE = 18f;
     public static final Vector3f DEFAULT_POSITION = OfficeAppState.DEFAULT_POSITION
             .add(new Vector3f(0f, 0f, -OfficeAppState.DEFAULT_SIZE));

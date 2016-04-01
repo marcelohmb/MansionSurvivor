@@ -24,6 +24,7 @@ import com.jme3.scene.shape.Quad;
 import com.jme3.scene.shape.StripBox;
 import mygame.util.Direction;
 import mygame.util.Constants;
+import mygame.util.DoorTypes;
 
 /**
  *
@@ -37,6 +38,8 @@ public class ScenarioAppState extends AbstractAppState {
     protected static AssetManager assetManager;
     protected static Spatial player;
     public static final Vector3f FLOOR_MEASURES = new Vector3f(200F, 0f, 200f);
+    public static final float DEFAULT_DOOR_WIDTH = 2.5F;
+    public static final float DEFAULT_DOOR_HEIGHT = 5f;
 
     public ScenarioAppState() {
     }
@@ -120,8 +123,8 @@ public class ScenarioAppState extends AbstractAppState {
         }
 
         RigidBodyControl wallPhysics = new RigidBodyControl(wallCollisionShape, 0.0f);
-        //wall.addControl(wallPhysics);
-        //bulletAppState.getPhysicsSpace().add(wallPhysics); Commented only due TEST REASONS
+        wall.addControl(wallPhysics);
+        bulletAppState.getPhysicsSpace().add(wallPhysics);
         nodes.getRootNode().attachChild(wall);
         return wall;
     }
@@ -136,15 +139,15 @@ public class ScenarioAppState extends AbstractAppState {
 
         Geometry topWall = createWall(assetManager, width, height,
                 leftExtreme.add(new Vector3f(0f, 0f, -size)), Direction.HORIZONTAL);
-        
+
 
         Geometry leftWall = createWall(assetManager, size, height, leftExtreme, Direction.VERTICAL);
 
         Geometry rightWall = createWall(assetManager, size, height,
                 leftExtreme.add(new Vector3f(width, 0f, 0f)),
                 Direction.VERTICAL);
-     
-       // Geometry floor = createAFlat(assetManager, width, 1f, size, leftExtreme.add(new Vector3f(width / 2f, -1f, -size / 2f)));
+
+        // Geometry floor = createAFlat(assetManager, width, 1f, size, leftExtreme.add(new Vector3f(width / 2f, -1f, -size / 2f)));
 
         bottomWall.setName("bottomWall");
         topWall.setName("topWall");
@@ -160,5 +163,21 @@ public class ScenarioAppState extends AbstractAppState {
         //room.attachChild(floor);
         nodes.getRootNode().attachChild(room);
         return room;
+    }
+
+    /**
+     * Create a brown door in the position defined with a small change in it for
+     * make outside or inside and with the defined direction
+     */
+    public Geometry createADoor(float width, float height, Vector3f position, Direction dir, DoorTypes type) {      
+        if(type == DoorTypes.INDOOR){
+           position.setZ(position.getZ() - 0.1f);
+        }
+        else{
+           position.setZ(position.getZ() + 0.1f);
+        }     
+        Geometry door = createWall(assetManager, width, height, position, dir);
+        door.getMaterial().setColor("Color", ColorRGBA.Brown);   
+        return door;
     }
 }
