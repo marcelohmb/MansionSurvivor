@@ -14,6 +14,7 @@ import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import mygame.appstates.AnimalCagesAppState;
 
 /**
  *
@@ -48,28 +49,37 @@ public class BeginGameAppState extends AbstractAppState {
 
         charactersAppState = new CharactersAppState();
         this.stateManager.attach(charactersAppState);
-        
+
         cameraAppState = new CameraAppState();
         this.stateManager.attach(cameraAppState);
-            
+
         prototypeRoom1AppState = new PrototypeRoom1AppState();
         this.stateManager.attach(prototypeRoom1AppState);
-        
-        //MansionEntranceAppState mansionEntranceAppState = new MansionEntranceAppState();
-        //this.stateManager.attach(mansionEntranceAppState);
-        
+
+        MansionEntranceAppState mansionEntranceAppState = new MansionEntranceAppState();
+        this.stateManager.attach(mansionEntranceAppState);
+
         MainCorridorAppState mainCorridorAppState = new MainCorridorAppState();
         this.stateManager.attach(mainCorridorAppState);
 
+        OfficeAppState officeAppState = new OfficeAppState();
+        this.stateManager.attach(officeAppState);
+
+        AnimalCagesAppState animalCagesAppState = new AnimalCagesAppState();
+        this.stateManager.attach(animalCagesAppState);
+
+        MaintenanceRoom maintenanceRoom = new MaintenanceRoom();
+        this.stateManager.attach(maintenanceRoom);
+        
+        PowerGeneratorRoomAppState powerGeneratorRoomAppState = new PowerGeneratorRoomAppState();
+        this.stateManager.attach(powerGeneratorRoomAppState);
+                
         gameplayInputAppState = new GameplayInputAppState();
         this.stateManager.attach(gameplayInputAppState);
-        
+
     }
-    
-    
 
     @Override
     public void update(float tpf) {
-
     }
 }

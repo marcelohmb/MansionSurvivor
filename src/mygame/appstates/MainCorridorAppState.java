@@ -15,14 +15,16 @@ import com.jme3.scene.Node;
  */
 public class MainCorridorAppState extends RoomAppState {
 
-    private static final float DEFAULT_WIDTH = 18f;
-    private static final float DEFAULT_HEIGHT = 20f;
-    private static final float DEFAULT_SIZE = 36;
-    private static final Vector3f DEFAULT_LOCATION = new Vector3f(18f,0f,18f);
+    public static final float DEFAULT_WIDTH = 18f;
+    public static final float DEFAULT_HEIGHT = 20f;
+    public static final float DEFAULT_SIZE = 36f;
+    public static final Vector3f DEFAULT_LOCATION = MansionEntranceAppState.DEFAULT_POSITION
+            .add(new Vector3f(9f, 0f, -DEFAULT_SIZE / 2f));
+    public static final Vector3f DEFAULT_PLAYER_LOCATION = Vector3f.ZERO;
 
     
     public MainCorridorAppState() {
-        super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_LOCATION , DEFAULT_LOCATION.add(new Vector3f(DEFAULT_WIDTH / 2f, 0f, -DEFAULT_SIZE / 2f)));
+        super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_LOCATION , DEFAULT_PLAYER_LOCATION);
     }
 
     @Override
