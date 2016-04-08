@@ -17,9 +17,11 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
-import mygame.util.Constants;
+import mygame.javaclasses.Constants.Mapping;
+import mygame.javaclasses.Constants.UserData;
 import mygame.controls.PlayerControl;
+import mygame.javaclasses.Constants.PlayerOptions;
+import mygame.javaclasses.MyArrayList;
 
 /**
  *
@@ -29,8 +31,6 @@ public class GameplayInputAppState extends AbstractAppState {
 
     /*Gives access to the input of the game */
     private InputManager inputManager;
-    /*Indicate if the game is running or if is paused */
-    private boolean isRunning;
     /**
      * Gives access to player node (that contains the player and related)
      */
@@ -60,6 +60,14 @@ public class GameplayInputAppState extends AbstractAppState {
      * Used in debugging
      */
     private FlyByCamera flyCam;
+    /**
+     * This app state can be used in a door open player action
+     */
+    private ChangeRoomAppState changeRoomAppState;
+    /**
+     * List of player options that affect input check's
+     */
+    MyArrayList<String> playerOptions;
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
@@ -67,33 +75,33 @@ public class GameplayInputAppState extends AbstractAppState {
         // Receive and set valeus
         super.initialize(stateManager, app);
         this.app = (SimpleApplication) app;
-        playerNode = (Node) this.app.getRootNode().getChild(Constants.UserData.PLAYER_NODE);
-        player = playerNode.getChild(Constants.UserData.PLAYER);
+        playerNode = (Node) this.app.getRootNode().getChild(UserData.PLAYER_NODE);
+        player = playerNode.getChild(UserData.PLAYER);
         playerPhysics = player.getControl(BetterCharacterControl.class);
         playerControl = player.getControl(PlayerControl.class);
-        isRunning = true;
         flyCam = stateManager.getState(CameraAppState.class).getFlyByCamera();
-
 
         //Set mapping
         inputManager = app.getInputManager();
-        inputManager.addMapping(Constants.Mapping.UP, new KeyTrigger(KeyInput.KEY_UP),
+        inputManager.addMapping(Mapping.UP, new KeyTrigger(KeyInput.KEY_UP),
                 new KeyTrigger(KeyInput.KEY_W));
-        inputManager.addMapping(Constants.Mapping.DOWN, new KeyTrigger(KeyInput.KEY_DOWN),
+        inputManager.addMapping(Mapping.DOWN, new KeyTrigger(KeyInput.KEY_DOWN),
                 new KeyTrigger(KeyInput.KEY_S));
-        inputManager.addMapping(Constants.Mapping.LEFT, new KeyTrigger(KeyInput.KEY_LEFT),
+        inputManager.addMapping(Mapping.LEFT, new KeyTrigger(KeyInput.KEY_LEFT),
                 new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping(Constants.Mapping.RIGHT, new KeyTrigger(KeyInput.KEY_RIGHT),
+        inputManager.addMapping(Mapping.RIGHT, new KeyTrigger(KeyInput.KEY_RIGHT),
                 new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping(Mapping.RETURN, new KeyTrigger(KeyInput.KEY_RETURN));
 
         // Add listeners here
-        inputManager.addListener(Movement, Constants.Mapping.UP, Constants.Mapping.DOWN,
-                Constants.Mapping.LEFT, Constants.Mapping.RIGHT);
+        inputManager.addListener(Movement, Mapping.UP, Mapping.DOWN, Mapping.LEFT, Mapping.RIGHT,
+                Mapping.RETURN);
+        
 
     }
     private ActionListener Debugging = new ActionListener() {
         public void onAction(String name, boolean isPressed, float tpf) {
-            if (isRunning) {
+            if (isEnabled()) {
                 // Put verification's of debug input here
             }
         }
@@ -101,32 +109,36 @@ public class GameplayInputAppState extends AbstractAppState {
     private ActionListener Movement = new ActionListener() {
         public void onAction(String name, boolean isPressed, float tpf) {
 
-            if (isRunning) {
-                if (name.equals(Constants.Mapping.RIGHT)) {
+            if (isEnabled()) {
+                if (name.equals(Mapping.RIGHT)) {
                     if (isPressed) {
-                        playerMove.setX(playerControl.getSpeed() );
+                        playerMove.setX(playerControl.getSpeed());
                     } else {
                         playerMove.setX(0f);
                     }
-                } else if (name.equals(Constants.Mapping.LEFT)) {
+                } else if (name.equals(Mapping.LEFT)) {
                     if (isPressed) {
-                        playerMove.setX(playerControl.getSpeed()* -1f);
+                        playerMove.setX(playerControl.getSpeed() * -1f);
                     } else {
                         playerMove.setX(0f);
                     }
-                } else if (name.equals(Constants.Mapping.UP)) {
+                } else if (name.equals(Mapping.UP)) {
                     if (isPressed) {
-                        playerMove.setZ(playerControl.getSpeed()* -1f);
+                        playerMove.setZ(playerControl.getSpeed() * -1f);
                     } else {
                         playerMove.setZ(0f);
                     }
-                } else if (name.equals(Constants.Mapping.DOWN)) {
+                } else if (name.equals(Mapping.DOWN)) {
                     if (isPressed) {
-                        playerMove.setZ(playerControl.getSpeed() );
+                        playerMove.setZ(playerControl.getSpeed());
                     } else {
                         playerMove.setZ(0f);
                     }
                 }
+                 else if (name.equals(Mapping.RETURN)) {
+
+                }
+
             }
 
             playerControl.setWalkDirection(playerMove);
@@ -138,4 +150,8 @@ public class GameplayInputAppState extends AbstractAppState {
             playerPhysics.setWalkDirection(playerControl.getWalkDirection());
         }
     };
+
+    @Override
+    public void update(float tpf) {
+    }
 }

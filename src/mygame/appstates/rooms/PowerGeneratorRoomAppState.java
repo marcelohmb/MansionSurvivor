@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mygame.appstates;
+package mygame.appstates.rooms;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Vector3f;
+import mygame.appstates.RoomAppState;
 
 /**
  *
@@ -22,7 +23,7 @@ public class PowerGeneratorRoomAppState extends RoomAppState {
     public static final Vector3f DEFAULT_PLAYER_POSITION = Vector3f.ZERO;
 
     public PowerGeneratorRoomAppState() {
-        super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_POSITION, DEFAULT_PLAYER_POSITION);
+        super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_POSITION);
     }
 
     @Override

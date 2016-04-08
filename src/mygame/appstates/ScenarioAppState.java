@@ -11,7 +11,6 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
-import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -20,11 +19,11 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
-import com.jme3.scene.shape.Quad;
-import com.jme3.scene.shape.StripBox;
-import mygame.util.Direction;
-import mygame.util.Constants;
-import mygame.util.DoorTypes;
+import mygame.controls.DoorControl;
+import mygame.enumerations.Direction;
+import mygame.javaclasses.Constants;
+import mygame.javaclasses.ConstructionAssets;
+import mygame.enumerations.DoorType;
 
 /**
  *
@@ -32,14 +31,13 @@ import mygame.util.DoorTypes;
  */
 public class ScenarioAppState extends AbstractAppState {
 
+    public static final Vector3f FLOOR_MEASURES = new Vector3f(200F, 0f, 200f);
     protected static NodesAppState nodes;
     protected static AppStateManager stateManager;
     protected static BulletAppState bulletAppState;
     protected static AssetManager assetManager;
     protected static Spatial player;
-    public static final Vector3f FLOOR_MEASURES = new Vector3f(200F, 0f, 200f);
-    public static final float DEFAULT_DOOR_WIDTH = 2.5F;
-    public static final float DEFAULT_DOOR_HEIGHT = 5f;
+    protected static ConstructionAssets constructionAssets;
 
     public ScenarioAppState() {
     }
@@ -54,6 +52,7 @@ public class ScenarioAppState extends AbstractAppState {
         assetManager = simpleApp.getAssetManager();
         Node playerNode = nodes.getPlayerNode();
         player = playerNode.getChild(Constants.UserData.PLAYER);
+        ScenarioAppState.constructionAssets = new ConstructionAssets(nodes.getRootNode(), assetManager, bulletAppState);
     }
 
     /* */
@@ -161,23 +160,9 @@ public class ScenarioAppState extends AbstractAppState {
         room.attachChild(leftWall);
         room.attachChild(rightWall);
         //room.attachChild(floor);
-        nodes.getRootNode().attachChild(room);
+
         return room;
     }
 
-    /**
-     * Create a brown door in the position defined with a small change in it for
-     * make outside or inside and with the defined direction
-     */
-    public Geometry createADoor(float width, float height, Vector3f position, Direction dir, DoorTypes type) {      
-        if(type == DoorTypes.INDOOR){
-           position.setZ(position.getZ() - 0.1f);
-        }
-        else{
-           position.setZ(position.getZ() + 0.1f);
-        }     
-        Geometry door = createWall(assetManager, width, height, position, dir);
-        door.getMaterial().setColor("Color", ColorRGBA.Brown);   
-        return door;
-    }
+
 }

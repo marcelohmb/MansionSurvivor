@@ -2,12 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mygame.appstates;
+package mygame.appstates.rooms;
 
+import mygame.appstates.rooms.MansionEntranceAppState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
+import mygame.appstates.RoomAppState;
 
 /**
  *
@@ -24,7 +26,7 @@ public class MainCorridorAppState extends RoomAppState {
 
     
     public MainCorridorAppState() {
-        super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_LOCATION , DEFAULT_PLAYER_LOCATION);
+        super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_LOCATION);
     }
 
     @Override

@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mygame.util;
+package mygame.interfaces;
 
 /**
  *
  * @author GAMEOVER
  */
-public enum Direction {
-    HORIZONTAL,
-    VERTICAL
+public interface IEnable {
+    
+    boolean isEnabled();
+    void setEnabled(boolean enabled);
 }

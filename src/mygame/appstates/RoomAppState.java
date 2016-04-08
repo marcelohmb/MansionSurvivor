@@ -8,36 +8,63 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
-import mygame.util.Constants;
-import mygame.controls.PlayerControl;
+import mygame.javaclasses.ConstructionAssets;
+import mygame.javaclasses.Room;
 
 /**
  *
  * @author GAMEOVER
  */
 public abstract class RoomAppState extends ScenarioAppState {
-    
+
     protected float roomWidth;
     protected float roomSize;
     protected float roomHeight;
-    protected Node room;
+    protected Room room;
     protected Vector3f roomLeftExtreme;
-    protected Vector3f roomPlayerPosition;
 
-    public RoomAppState(float roomWidth, float roomHeight, float roomSize,  Vector3f roomLeftExtreme,
-            Vector3f playerPos) {
+    public RoomAppState(float roomWidth, float roomHeight, float roomSize, Vector3f roomLeftExtreme) {
         this.roomWidth = roomWidth;
         this.roomHeight = roomHeight;
         this.roomSize = roomSize;
         this.roomLeftExtreme = roomLeftExtreme;
-        this.roomPlayerPosition = playerPos;
     }
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-        player.getControl(PlayerControl.class).setPosition(roomPlayerPosition);
-        room = createARoom(assetManager, roomWidth, roomHeight, roomSize, roomLeftExtreme);
+        room = new Room(constructionAssets, roomWidth, roomHeight, roomSize, roomLeftExtreme);
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        if (initialized) {
+            if (enabled) {
+                OnEnabled();
+            }
+            else{
+                OnDisabled();
+            }
+        }
+    }
+    
+    
+    public void OnDisabled(){
+        room.setEnabled(false);
+    }
+    
+    public void OnEnabled(){
+        room.setEnabled(true);
+    }
+    
+    
+    @Override
+    public void cleanup(){
+        setEnabled(false);
     }
 }

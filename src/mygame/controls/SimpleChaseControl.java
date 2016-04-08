@@ -11,7 +11,7 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
-import mygame.util.Constants;
+import mygame.javaclasses.Constants;
 
 /**
  *
@@ -85,7 +85,6 @@ public class SimpleChaseControl extends AbstractControl {
 
             spatial.getControl(BetterCharacterControl.class).setWalkDirection(new Vector3f(moveX, 0f, moveZ));
 
-            //System.out.println(spatial.getControl(BetterCharacterControl.class ).getWalkDirection() );
 
             spatial.getControl(BetterCharacterControl.class).setViewDirection(
                     spatial.getControl(BetterCharacterControl.class).

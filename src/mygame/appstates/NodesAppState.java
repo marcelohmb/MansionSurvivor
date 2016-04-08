@@ -9,7 +9,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.scene.Node;
-import mygame.util.Constants;
+import mygame.javaclasses.Constants;
 
 /**
  *
@@ -21,11 +21,13 @@ public class NodesAppState extends AbstractAppState {
     private Node enemyNode;
     private Node rootNode;
     private Node guiNode;
+    private Node doorsNode;
 
     // Initialize all exclusive ndoes
     public NodesAppState() {
         playerNode = new Node(Constants.UserData.PLAYER_NODE);
         enemyNode = new Node(Constants.UserData.ENEMY_NODE);
+        doorsNode = new Node(Constants.UserData.DOORS_NODE);
     }
 
     @Override
@@ -51,5 +53,9 @@ public class NodesAppState extends AbstractAppState {
 
     public Node getEnemyNode() {
         return enemyNode;
+    }
+    
+    public Node getDoorsNode(){
+        return doorsNode;
     }
 }

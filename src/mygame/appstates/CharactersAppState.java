@@ -15,7 +15,7 @@ import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import mygame.util.Constants;
+import mygame.javaclasses.Constants;
 import mygame.controls.PlayerControl;
 import mygame.controls.SimpleChaseControl;
 
@@ -41,8 +41,8 @@ public class CharactersAppState extends AbstractAppState {
         Spatial player = (Node) assetManager.loadModel("Models/Jaime/Jaime.j3o");
         PlayerControl playerControl = new PlayerControl(player);
         player.setName(Constants.UserData.PLAYER);
-        player.setLocalScale(1.50f);
-        BetterCharacterControl playerPhysics = new BetterCharacterControl(1.4f, 2.8f, 0.1f);
+        player.setLocalScale(2f);
+        BetterCharacterControl playerPhysics = new BetterCharacterControl(2.1f, 4.2f, 0.1f);
         player.addControl(playerPhysics);
         player.addControl(playerControl);
         playerPhysics.setViewDirection(new Vector3f(0f, 0f, -1f));
