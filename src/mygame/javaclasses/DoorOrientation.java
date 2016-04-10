@@ -4,6 +4,10 @@
  */
 package mygame.javaclasses;
 
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
+import com.jme3.export.Savable;
+import java.io.IOException;
 import mygame.enumerations.DoorType;
 import mygame.enumerations.Direction;
 
@@ -11,21 +15,34 @@ import mygame.enumerations.Direction;
  *
  * @author GAMEOVER
  */
-public class DoorOrientation {
+public class DoorOrientation implements Savable{
    
-    private String doorType;
-    private String doorDirection;
+    private DoorType doorType;
+    private Direction doorDirection;
     
     public DoorOrientation(DoorType doorType, Direction doorDirection){
-       this.doorType = doorType.toString();
-       this.doorDirection = doorDirection.toString();
+       this.doorType = doorType;
+       this.doorDirection = doorDirection;
     }
     
-    public String getDoorType(){
+    public DoorOrientation(DoorOrientation doorOrientation){
+        this.doorType = doorOrientation.getDoorType();
+        this.doorDirection = doorOrientation.getDoorDirection();
+    }
+    
+    public DoorType getDoorType(){
         return doorType;
     }
     
-    public String getDoorDirection(){
+    public Direction getDoorDirection(){
         return doorDirection;
+    }
+
+    public void write(JmeExporter ex) throws IOException {
+
+    }
+
+    public void read(JmeImporter im) throws IOException {
+
     }
 }

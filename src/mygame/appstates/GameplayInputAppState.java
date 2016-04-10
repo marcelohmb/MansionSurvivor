@@ -80,6 +80,7 @@ public class GameplayInputAppState extends AbstractAppState {
         playerPhysics = player.getControl(BetterCharacterControl.class);
         playerControl = player.getControl(PlayerControl.class);
         flyCam = stateManager.getState(CameraAppState.class).getFlyByCamera();
+        this.changeRoomAppState = stateManager.getState(ChangeRoomAppState.class);
 
         //Set mapping
         inputManager = app.getInputManager();
@@ -137,10 +138,15 @@ public class GameplayInputAppState extends AbstractAppState {
                 } else if (name.equals(Mapping.RETURN)) {
                     if (playerControl.getListOfPlayerOptions() != null
                             && !playerControl.getListOfPlayerOptions().isEmpty()) {
-                       
+
                         String mostRecentOption = playerControl.getListOfPlayerOptions()
                                 .get(playerControl.getListOfPlayerOptions().size() - 1);
-                        System.out.print("PLAYER OPTION = " + mostRecentOption + "\n");
+
+                        if (mostRecentOption.equals(PlayerOptions.OPEN_DOOR)) {
+                            changeRoomAppState.changeRoom();
+                            playerControl.getListOfPlayerOptions()
+                                    .remove(playerControl.getListOfPlayerOptions().size() - 1);
+                        }
 
                     }
 

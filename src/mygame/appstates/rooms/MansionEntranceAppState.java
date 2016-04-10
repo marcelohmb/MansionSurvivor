@@ -9,9 +9,12 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import mygame.appstates.RoomAppState;
+import mygame.controls.DoorControl;
 import mygame.enumerations.Direction;
+import mygame.enumerations.DoorType;
 import mygame.javaclasses.Constants;
 import mygame.javaclasses.Door;
+import mygame.javaclasses.DoorOrientation;
 
 /**
  *
@@ -25,8 +28,8 @@ public class MansionEntranceAppState extends RoomAppState {
     public static final Vector3f COUNTRYARD_DOOR_POS = new Vector3f(9f, 0f, -0.1f);
     public static final Vector3f DEFAULT_POSITION = Vector3f.ZERO;
     protected static Door countryardDoor;
-    
-    public Geometry getCountryardDoor(){
+
+    public Geometry getCountryardDoor() {
         return countryardDoor.getPrototypeGeometry().getGeometry();
     }
 
@@ -37,8 +40,15 @@ public class MansionEntranceAppState extends RoomAppState {
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
+
+        DoorOrientation countryardDoorOrientation = new DoorOrientation(DoorType.INDOOR, Direction.HORIZONTAL);
         countryardDoor = new Door(constructionAssets, COUNTRYARD_DOOR_POS,
-                Direction.HORIZONTAL);
+                countryardDoorOrientation.getDoorDirection());
+        Geometry countryardDoorGeometry = countryardDoor.getPrototypeGeometry().getGeometry();
+        DoorControl countryardDoorControl = new DoorControl(countryardDoorGeometry,
+                this, countryardDoorOrientation, nodes.getPlayerNode(), nodes.getDoorsNode());
+        countryardDoorGeometry.addControl(countryardDoorControl);
+
         setEnabled(true);
     }
 
