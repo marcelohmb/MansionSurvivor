@@ -40,17 +40,22 @@ public class ChangeRoomAppState extends AbstractAppState {
      * Change the room based in the door that player is using
      */
     public void changeRoom() {
-        DoorControl doorPlayerUsing = getDoorPlayerIsUsing();
-        RoomAppState roomPlayerIs = doorPlayerUsing.getDoorRoomAppState();
-        roomPlayerIs.setEnabled(false);
+        DoorControl playerUsingDoor = getDoorPlayerIsUsing();
+        RoomAppState currentRoom = playerUsingDoor.getDoorRoomAppState();
+        RoomAppState nextRoom = playerUsingDoor.getSymetricDoor().getDoorRoomAppState();
+        
+        playerUsingDoor.setEnabled(false);
+        
+        currentRoom.setEnabled(false);
         rootNode.detachChild(playerNode);
-        DoorControl nextDoorControl = calculateSymetricDoor(doorPlayerUsing);
-        RoomAppState nextRoom = nextDoorControl.getDoorRoomAppState();
-        playerNode.getChild(UserData.PLAYER).setLocalTranslation(nextDoorControl.getSpatial().getLocalTranslation());
-        rootNode.attachChild(playerNode);
         nextRoom.setEnabled(true);
-        doorPlayerUsing.setPlayerUsingDoor(false);
+        rootNode.attachChild(playerNode);
+       
+        
     }
+    
+  
+    
 
     private DoorControl getDoorPlayerIsUsing() {
         for (Spatial child : this.rootNode.getChildren()) {
@@ -63,46 +68,6 @@ public class ChangeRoomAppState extends AbstractAppState {
         return null;
     }
 
-    /**
-     * Calculate corresponding door based in the orientation of the door
-     */
-    private DoorControl calculateSymetricDoor(DoorControl door) {
-
-        if (door == null) {
-            throw new NullPointerException("calculateSymetricDoor : argumment door is null");
-        }
-
-        DoorOrientation doorOrientation = door.getDoorOrienation();
-        Vector3f symetricDoorPos = new Vector3f(door.getSpatial().getLocalTranslation().x,
-                door.getSpatial().getLocalTranslation().y, door.getSpatial().getLocalTranslation().z);
-        
-        System.out.println("DEBUG: doorPos =" + door.getSpatial().getLocalTranslation());
-
-
-        if (doorOrientation.getDoorDirection().equals(Direction.HORIZONTAL)) {
-            if (doorOrientation.getDoorType().equals(DoorType.INDOOR)) {
-                symetricDoorPos.setZ(symetricDoorPos.z + 0.2f); // test
-            } else {
-                symetricDoorPos.setZ(symetricDoorPos.z + 0.2f);
-            }
-        } else {
-            if (doorOrientation.getDoorType().equals(DoorType.INDOOR)) {
-                symetricDoorPos.setX(symetricDoorPos.x + 0.2f);
-            } else {
-                symetricDoorPos.setX(symetricDoorPos.x - 0.2f);
-            }
-        }
-
-        System.out.println("DEBUG: symetricDoorPos =" + symetricDoorPos);
-
-        for (Spatial child : this.rootNode.getChildren()) {
-            if (child.getControl(DoorControl.class) != null
-                    && child.getLocalTranslation().equals(symetricDoorPos)) {
-                return child.getControl(DoorControl.class);
-            }
-        }
-        return null;
-    }
 
     @Override
     public void update(float tpf) {

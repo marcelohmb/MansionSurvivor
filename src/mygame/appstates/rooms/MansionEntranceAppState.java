@@ -27,10 +27,11 @@ public class MansionEntranceAppState extends RoomAppState {
     private static final float DEFAULT_SIZE = 18f;
     public static final Vector3f COUNTRYARD_DOOR_POS = new Vector3f(9f, 0f, -0.1f);
     public static final Vector3f DEFAULT_POSITION = Vector3f.ZERO;
-    protected static Door countryardDoor;
+    protected  Door countryardDoor;
+    protected DoorControl countryardDoorControl;
 
-    public Geometry getCountryardDoor() {
-        return countryardDoor.getPrototypeGeometry().getGeometry();
+    public DoorControl getCountryardDoor() {
+        return countryardDoorControl;
     }
 
     public MansionEntranceAppState() {
@@ -47,8 +48,12 @@ public class MansionEntranceAppState extends RoomAppState {
         countryardDoor = new Door(constructionAssets, COUNTRYARD_DOOR_POS,
                 countryardDoorOrientation.getDoorDirection(), doubleDoor);
         Geometry countryardDoorGeometry = countryardDoor.getPrototypeGeometry().getGeometry();
-        DoorControl countryardDoorControl = new DoorControl(countryardDoorGeometry,
-                this, countryardDoorOrientation, nodes.getPlayerNode());
+        
+        DoorControl countryardSymetricDoor =
+                stateManager.getState(PrototypeRoom1AppState.class).getEntranceDoorControl();
+        
+        countryardDoorControl = new DoorControl(countryardDoorGeometry,
+                this, countryardSymetricDoor ,countryardDoorOrientation, nodes.getPlayerNode());
         countryardDoorGeometry.addControl(countryardDoorControl);
 
         setEnabled(true);

@@ -30,6 +30,7 @@ public class PrototypeRoom1AppState extends RoomAppState {
 
     public static final Vector3f ENTRANCE_DOOR_POS = new Vector3f(9f, 0f, 0.1f);
     protected Door mansionEntranceDoor;
+    protected DoorControl entranceDoorControl;
     protected Geometry floor;
     protected RigidBodyControl floorPhysics;
 
@@ -37,8 +38,8 @@ public class PrototypeRoom1AppState extends RoomAppState {
         return mansionEntranceDoor.getPrototypeGeometry().getGeometry();
     }
 
-    public Door getMansionEntranceDoor() {
-        return mansionEntranceDoor;
+    public DoorControl getEntranceDoorControl() {
+        return entranceDoorControl;
     }
 
     public PrototypeRoom1AppState() {
@@ -71,7 +72,8 @@ public class PrototypeRoom1AppState extends RoomAppState {
         // Left door
         mansionEntranceDoor = new Door(constructionAssets, ENTRANCE_DOOR_POS, Direction.HORIZONTAL, doubleDoor);
         Geometry entranceDoorGeometry = mansionEntranceDoor.getPrototypeGeometry().getGeometry();
-        DoorControl entranceDoorControl = new DoorControl(entranceDoorGeometry, this, doorOrientation,
+        DoorControl entranceSymetricDoor = stateManager.getState(MansionEntranceAppState.class).getCountryardDoor();
+        entranceDoorControl = new DoorControl(entranceDoorGeometry, this, entranceSymetricDoor, doorOrientation,
                 nodes.getPlayerNode());
         entranceDoorGeometry.addControl(entranceDoorControl);
 

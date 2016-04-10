@@ -84,6 +84,14 @@ public class DoorControl extends AbstractControl {
         return spatial.getUserData(UserData.DOOR_ORIENTATION);
     }
     
+    private void setSymetricDoor(DoorControl door){
+        spatial.setUserData(UserData.SYMETRIC_DOOR, door);
+    }
+    
+    public DoorControl getSymetricDoor(){
+        return spatial.getUserData(UserData.SYMETRIC_DOOR);
+    }
+    
 
     /**
      * Create a door control
@@ -96,13 +104,14 @@ public class DoorControl extends AbstractControl {
      * check the player pos
 
      */    
-    public DoorControl(Geometry door, RoomAppState doorRoom,
+    public DoorControl(Geometry door, RoomAppState doorRoom, DoorControl symetricDoor,
             DoorOrientation orientation, Node playerNode) {
         this.spatial = door;
         collisionResults = new CollisionResults();
         DoorOrientation doorOrientation = new DoorOrientation(orientation);
         setDoorOrienation(doorOrientation);
         setPlayerUsingDoor(false);
+        setSymetricDoor(symetricDoor);
         setDoorRoomAppState(doorRoom);
         this.playerNode = playerNode;
         rayDirection = new Vector3f();

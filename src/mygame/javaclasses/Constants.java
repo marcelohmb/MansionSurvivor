@@ -36,6 +36,7 @@ public final class Constants {
         public static final String CORRESPONDENT_DOOR = "correspondentDoor";
         public static final String PLAYER_USING_DOOR = "playerUsingDoor";
         public static final String DOOR_ORIENTATION = "doorOrientation";
+        public static final String SYMETRIC_DOOR = "symetricDoor";
     }
 
     public static final class Mapping {
