@@ -66,7 +66,7 @@ public class DoorControl extends AbstractControl {
      * Set the room that this door pertains*
      */
     private void setDoorRoomAppState(RoomAppState room) {
-        spatial.setUserData(UserData.ROOM_APP, ray);
+        spatial.setUserData(UserData.ROOM_APP, room);
     }
 
     /**
@@ -90,27 +90,21 @@ public class DoorControl extends AbstractControl {
      *
      * @param door spatial that the control will be added
      * @param doorRoom the room of the current door
-     * @param doorCorrespondent is the door in the other side of this door
      * @param orientation gives the orientation for where the ray will be
      * launched
      * @param playerNode receive a reference of the player node in order to
      * check the player pos
-     * @param doorsNode gives a reference to the doorsNode in order to set this
-     * door in there
-     */
-    
-    private Node doorsNode;
-    
+
+     */    
     public DoorControl(Geometry door, RoomAppState doorRoom,
-            DoorOrientation orientation, Node playerNode, Node doorsNode) {
+            DoorOrientation orientation, Node playerNode) {
         this.spatial = door;
         collisionResults = new CollisionResults();
         DoorOrientation doorOrientation = new DoorOrientation(orientation);
+        setDoorOrienation(doorOrientation);
+        setPlayerUsingDoor(false);
         setDoorRoomAppState(doorRoom);
         this.playerNode = playerNode;
-        this.doorsNode = doorsNode;
-        doorsNode.attachChild(spatial);
-
         rayDirection = new Vector3f();
 
         if (doorOrientation.getDoorDirection() == Direction.HORIZONTAL) {
@@ -145,17 +139,6 @@ public class DoorControl extends AbstractControl {
                 }
             }
             collisionResults.clear();
-        }
-        
-                
-        if(test == null){
-            test = doorsNode.getChildren().size();
-            System.out.println("size = " +  test);
-        }
-        
-        if(doorsNode.getChildren().size() != test){
-            test = doorsNode.getChildren().size();
-            System.out.println("size = " +  test);
         }
     }
 

@@ -16,7 +16,7 @@ import mygame.javaclasses.Room;
  *
  * @author GAMEOVER
  */
-public abstract class RoomAppState extends ScenarioAppState {
+public abstract class RoomAppState extends ScenarioAppState{
 
     protected float roomWidth;
     protected float roomSize;
@@ -54,12 +54,17 @@ public abstract class RoomAppState extends ScenarioAppState {
         }
     }
     
+    @Override
+    public void stateDetached(AppStateManager stateManager) {
+        setEnabled(false);
+    }
     
-    public void OnDisabled(){
+    
+    protected void OnDisabled(){
         room.setEnabled(false);
     }
     
-    public void OnEnabled(){
+    protected void OnEnabled(){
         room.setEnabled(true);
     }
     

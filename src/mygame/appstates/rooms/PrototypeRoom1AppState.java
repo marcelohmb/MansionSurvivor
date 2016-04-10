@@ -72,7 +72,7 @@ public class PrototypeRoom1AppState extends RoomAppState {
         mansionEntranceDoor = new Door(constructionAssets, ENTRANCE_DOOR_POS, Direction.HORIZONTAL, doubleDoor);
         Geometry entranceDoorGeometry = mansionEntranceDoor.getPrototypeGeometry().getGeometry();
         DoorControl entranceDoorControl = new DoorControl(entranceDoorGeometry, this, doorOrientation,
-                nodes.getPlayerNode(), nodes.getDoorsNode());
+                nodes.getPlayerNode());
         entranceDoorGeometry.addControl(entranceDoorControl);
 
         setEnabled(true);

@@ -42,11 +42,13 @@ public class MansionEntranceAppState extends RoomAppState {
         super.initialize(stateManager, app);
 
         DoorOrientation countryardDoorOrientation = new DoorOrientation(DoorType.INDOOR, Direction.HORIZONTAL);
+        
+        boolean doubleDoor = true;
         countryardDoor = new Door(constructionAssets, COUNTRYARD_DOOR_POS,
-                countryardDoorOrientation.getDoorDirection());
+                countryardDoorOrientation.getDoorDirection(), doubleDoor);
         Geometry countryardDoorGeometry = countryardDoor.getPrototypeGeometry().getGeometry();
         DoorControl countryardDoorControl = new DoorControl(countryardDoorGeometry,
-                this, countryardDoorOrientation, nodes.getPlayerNode(), nodes.getDoorsNode());
+                this, countryardDoorOrientation, nodes.getPlayerNode());
         countryardDoorGeometry.addControl(countryardDoorControl);
 
         setEnabled(true);

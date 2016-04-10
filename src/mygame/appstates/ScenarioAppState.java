@@ -12,6 +12,9 @@ import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
+import com.jme3.export.Savable;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -19,6 +22,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
+import java.io.IOException;
 import mygame.controls.DoorControl;
 import mygame.enumerations.Direction;
 import mygame.javaclasses.Constants;
@@ -29,7 +33,7 @@ import mygame.enumerations.DoorType;
  *
  * @author GAMEOVER
  */
-public class ScenarioAppState extends AbstractAppState {
+public class ScenarioAppState extends AbstractAppState implements Savable {
 
     public static final Vector3f FLOOR_MEASURES = new Vector3f(200F, 0f, 200f);
     protected static NodesAppState nodes;
@@ -162,6 +166,14 @@ public class ScenarioAppState extends AbstractAppState {
         //room.attachChild(floor);
 
         return room;
+    }
+
+    public void write(JmeExporter ex) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void read(JmeImporter im) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

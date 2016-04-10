@@ -52,6 +52,8 @@ public class CharactersAppState extends AbstractAppState {
         nodesAppState.getRootNode().attachChild(nodesAppState.getPlayerNode()); // Use this to show things in scene
         CameraAppState cameraAppState = stateManager.getState(CameraAppState.class);
         cameraAppState.setTarget(player);
+        playerControl.setPosition(new Vector3f(10f, 0f, -10f));
+
 
 
 
