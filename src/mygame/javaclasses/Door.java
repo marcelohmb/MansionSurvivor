@@ -34,6 +34,17 @@ public class Door implements IEnable {
         prototypeGeometry.getGeometry().getMaterial().setColor("Color", ColorRGBA.Brown);
     }
     
+    public Door(ConstructionAssets constructionAssets, Vector3f position, Direction dir, boolean doubleDoors) {
+        float customWidth;
+        if(doubleDoors){
+            customWidth = DEFAULT_DOOR_WIDTH * 2f;
+        }
+        else{
+            customWidth = DEFAULT_DOOR_WIDTH;
+        }
+        prototypeGeometry = new Wall(constructionAssets, customWidth, DEFAULT_DOOR_HEIGHT, position, dir);
+        prototypeGeometry.getGeometry().getMaterial().setColor("Color", ColorRGBA.Brown);
+    }    
     public void setEnabled(boolean enabled){
         this.enabled = enabled;
         if(enabled){

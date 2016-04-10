@@ -28,13 +28,19 @@ import mygame.enumerations.DoorType;
  */
 public class PrototypeRoom1AppState extends RoomAppState {
 
-    public static final Vector3f DEFAULT_LEFT_DOOR_POS = new Vector3f(9f, 0f, 0.1f);
-    public static final Vector3f DEFAULT_RIGHT_DOOR_POS = DEFAULT_LEFT_DOOR_POS.add(
-            new Vector3f(Door.DEFAULT_DOOR_WIDTH, 0f, 0f));
-    protected Door leftMansionEntranceDoor, rightMansionEntranceDoor;
+    public static final Vector3f DEFAULT_DOOR_POS = new Vector3f(9f, 0f, 0.1f);
+    protected Door mansionEntranceDoor;
     protected Geometry floor;
-    protected RigidBodyControl floorPhysics, playerPhysics;
-    protected MansionEntranceAppState mansionEntranceAppState;
+    protected RigidBodyControl floorPhysics;
+    
+    public Geometry getDoor(){
+        return mansionEntranceDoor.getPrototypeGeometry().getGeometry();
+    }
+    
+    public Door getMansionEntranceDoor(){
+       return mansionEntranceDoor;
+    }
+    
 
     public PrototypeRoom1AppState() {
         super(0f, 0f, 0f, Vector3f.ZERO); // Outdoor measures
@@ -43,15 +49,13 @@ public class PrototypeRoom1AppState extends RoomAppState {
     @Override
     public void OnEnabled() {
         super.OnEnabled();
-        leftMansionEntranceDoor.setEnabled(true);
-        rightMansionEntranceDoor.setEnabled(true);
+        mansionEntranceDoor.setEnabled(true);
     }
 
     @Override
     public void OnDisabled() {
         super.OnDisabled();
-        leftMansionEntranceDoor.setEnabled(false);
-        rightMansionEntranceDoor.setEnabled(false);
+        mansionEntranceDoor.setEnabled(false);
     }
 
     @Override
@@ -60,27 +64,18 @@ public class PrototypeRoom1AppState extends RoomAppState {
 
         floor = createGameFloor(assetManager, new Vector3f(0f, 0f, 10f));
         nodes.getRootNode().attachChild(nodes.getEnemyNode().getChild(Constants.UserData.FRANKESTEIN));
-        this.mansionEntranceAppState = stateManager.getState(MansionEntranceAppState.class);
 
 
         DoorOrientation doorOrientation = new DoorOrientation(DoorType.OUTDOOR, Direction.HORIZONTAL);
+        boolean doubleDoor = true;
 
         // Left door
-        leftMansionEntranceDoor = new Door(constructionAssets, DEFAULT_LEFT_DOOR_POS, Direction.HORIZONTAL);
-        Spatial leftDoorSpatial = (Spatial) leftMansionEntranceDoor.getPrototypeGeometry().getGeometry();
-        DoorControl leftDoorControl = new DoorControl(leftDoorSpatial, doorOrientation, nodes.getPlayerNode(),
-                nodes.getDoorsNode(), mansionEntranceAppState,
-                MansionEntranceAppState.DEFAULT_LEFT_DOOR_POSITION);
-        leftDoorSpatial.addControl(leftDoorControl);
-
-
-        // Right door
-        rightMansionEntranceDoor = new Door(constructionAssets, DEFAULT_RIGHT_DOOR_POS, Direction.HORIZONTAL);
-        Spatial rightDoorSpatial = (Spatial) rightMansionEntranceDoor.getPrototypeGeometry().getGeometry();
-        DoorControl rightDoorControl = new DoorControl(rightDoorSpatial, doorOrientation, nodes.getPlayerNode(),
-                nodes.getDoorsNode(), mansionEntranceAppState,
-                MansionEntranceAppState.DEFAULT_RIGHT_DOOR_POSITION);
-        rightDoorSpatial.addControl(rightDoorControl);
+        mansionEntranceDoor = new Door(constructionAssets, DEFAULT_DOOR_POS, Direction.HORIZONTAL, doubleDoor);
+        Spatial entranceDoorSpatial = (Spatial) mansionEntranceDoor.getPrototypeGeometry().getGeometry();
+        DoorControl otherSideEntrance = MansionEntranceAppState.
+        DoorControl entranceDoorControl = new DoorControl(entranceDoorSpatial, this, MansionEntranceAppState.ge doorOrientation,
+                nodes.getPlayerNode(),nodes.getDoorsNode());
+        entranceDoorSpatial.addControl(entranceDoorControl);
 
         setEnabled(true);
     }

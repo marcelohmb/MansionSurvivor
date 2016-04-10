@@ -13,7 +13,9 @@ import java.util.ArrayList;
 /**
  *
  * @author GAMEOVER
- * Allows set the array list in spatial user data
+ * Allows set the array list in spatial user data through the implementation of Savaable
+ * IMPORTANT NOTE: this can be the use (PlayerListAcations) substitute by Queue structure
+ * in order to use something something more proper
  */
 public class MyArrayList<T> extends ArrayList<T> implements Savable {
 

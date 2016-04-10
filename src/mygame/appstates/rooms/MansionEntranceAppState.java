@@ -7,8 +7,11 @@ package mygame.appstates.rooms;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
 import mygame.appstates.RoomAppState;
+import mygame.enumerations.Direction;
 import mygame.javaclasses.Constants;
+import mygame.javaclasses.Door;
 
 /**
  *
@@ -16,15 +19,16 @@ import mygame.javaclasses.Constants;
  */
 public class MansionEntranceAppState extends RoomAppState {
 
-    public static final float DEFAULT_WIDTH = 36f;
-    public static final float DEFAULT_HEIGHT = 20f;
-    public static final float DEFAULT_SIZE = 18f;
+    private static final float DEFAULT_WIDTH = 36f;
+    private static final float DEFAULT_HEIGHT = 20f;
+    private static final float DEFAULT_SIZE = 18f;
+    public static final Vector3f COUNTRYARD_DOOR_POS = new Vector3f(9f, 0f, -0.1f);
     public static final Vector3f DEFAULT_POSITION = Vector3f.ZERO;
-    public static final Vector3f DEFAULT_PLAYER_POSITION = new Vector3f(5f, 0f, -5f);
-    public static final Vector3f DEFAULT_LEFT_DOOR_POSITION = PrototypeRoom1AppState.DEFAULT_LEFT_DOOR_POS
-            .add(0F, 0F, 2F);
-    public static final Vector3f DEFAULT_RIGHT_DOOR_POSITION = PrototypeRoom1AppState.DEFAULT_RIGHT_DOOR_POS
-            .add(0F, 0F, 2F);
+    protected static Door countryardDoor;
+    
+    public Geometry getCountryardDoor(){
+        return countryardDoor.getPrototypeGeometry().getGeometry();
+    }
 
     public MansionEntranceAppState() {
         super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_POSITION);
@@ -33,16 +37,21 @@ public class MansionEntranceAppState extends RoomAppState {
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
+        countryardDoor = new Door(constructionAssets, COUNTRYARD_DOOR_POS,
+                Direction.HORIZONTAL);
         setEnabled(true);
     }
 
     @Override
     public void OnDisabled() {
         super.OnDisabled();
+        countryardDoor.setEnabled(false);
+
     }
 
     @Override
     public void OnEnabled() {
         super.OnEnabled();
+        countryardDoor.setEnabled(true);
     }
 }

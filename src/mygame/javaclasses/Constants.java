@@ -32,6 +32,8 @@ public final class Constants {
         public static final String DOORS_NODE = "doorsNode";
         public static final String PLAYER_ACTIONS = "playerActions";
         public static final String PLAYER_OPTIONS = "playerOptions";
+        public static final String ROOM_APP = "roomApp";
+        public static final String CORRESPONDENT_DOOR = "correspondentDoor";
     }
 
     public static final class Mapping {

@@ -29,20 +29,52 @@ public class DoorControl extends AbstractControl {
      * Max distance to be able to enter in the door
      */
     public static final float MAX_DISTANCE = 2f;
+    /**
+     * Store the results of collision of the ray
+     */
     private CollisionResults collisionResults;
+    /**
+     * Tells at what directino the ray will go
+     */
     private Vector3f rayDirection;
+    /**
+     * Ray that will be dispared in order to detect objects next at door
+     */
     private Ray ray;
-    private RoomAppState nextRoom;
-    private Vector3f nextPosition;
-    private boolean isCloseToDoor;
+    /**
+     * The player node is the only node that contains things that can enter in
+     * the room
+     */
+    private Node playerNode;
+    /**
+     * The door node will be filled with DoorControls in order to be used my
+     * ChangeRoomAppState
+     */
+    private Node doorsNode;
+    /**
+     * Indicate what room this door pertains. Used to load the room
+     */
+    private RoomAppState myRoomAppState;
+    /**
+     * Tells to what other side door this door correspond *
+     */
+    private DoorControl correspondentDoor;
 
-    public boolean isCloseToDoor() {
-        return isCloseToDoor;
+    public DoorControl getCorrespondentDoor() {
+        return correspondentDoor;
+    }
+    
+    public void setCorrespondentDoor(DoorControl d){
+      spatial.setUserData(UserData.CORRESPONDENT_DOOR, d);
     }
 
-    
-    private Node playerNode;
-    private Node doorsNode;
+    private void setDoorRoomAppState(RoomAppState room) {
+        spatial.setUserData(UserData.ROOM_APP, ray);
+    }
+
+    public RoomAppState getDoorRoomAppState() {
+        return spatial.getUserData(UserData.ROOM_APP);
+    }
 
     private String getDoorType() {
         return spatial.getUserData(UserData.DOOR_TYPE);
@@ -59,20 +91,27 @@ public class DoorControl extends AbstractControl {
     private void setDirection(String direction) {
         spatial.setUserData(UserData.DIRECTION, direction);
     }
-
-    public DoorControl(Spatial door, DoorOrientation orientation, Node playerNode,
-            Node doorsNode, RoomAppState nextRoom, Vector3f nextPosition) {
+    
+    /** Create a door control
+     * @param door spatial that the control will be added
+     @param doorRoom the room of the current door
+     @param doorCorrespondent is the door in the other side of this door
+     @param orientation gives the orientation for where the ray will be launched
+     @param playerNode receive a reference of the player node in order to check the player pos
+     @param doorsNode gives a reference to the doorsNode in order to set this door in there*/
+    public DoorControl(Spatial door, RoomAppState doorRoom, DoorControl doorCorrespondent,
+            DoorOrientation orientation, Node playerNode, Node doorsNode) {
         this.spatial = door;
         collisionResults = new CollisionResults();
         setDoorType(orientation.getDoorType());
         setDirection(orientation.getDoorDirection());
-        rayDirection = new Vector3f();
+        setDoorRoomAppState(doorRoom);
         this.playerNode = playerNode;
-        this.nextRoom = nextRoom;
-        this.isCloseToDoor = false;
         this.doorsNode = doorsNode;
 
         doorsNode.attachChild(door);
+
+        rayDirection = new Vector3f();
 
         if (getDirection().equals(Direction.HORIZONTAL.toString())) {
 
@@ -98,7 +137,7 @@ public class DoorControl extends AbstractControl {
             playerNode.collideWith(ray, collisionResults);
             if (collisionResults.getClosestCollision() != null) {
                 if (collisionResults.getClosestCollision().getDistance() <= MAX_DISTANCE) {
-                    System.out.println("DOOR: Im' seeing" + collisionResults.getClosestCollision().getGeometry().getName());
+                    // System.out.println("DOOR: Im' seeing" + collisionResults.getClosestCollision().getGeometry().getName());
                     playerNode.getChild(UserData.PLAYER).getControl(PlayerControl.class).getListOfPlayerOptions()
                             .add(PlayerOptions.OPEN_DOOR);
                 }

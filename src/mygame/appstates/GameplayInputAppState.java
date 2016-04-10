@@ -96,7 +96,7 @@ public class GameplayInputAppState extends AbstractAppState {
         // Add listeners here
         inputManager.addListener(Movement, Mapping.UP, Mapping.DOWN, Mapping.LEFT, Mapping.RIGHT,
                 Mapping.RETURN);
-        
+
 
     }
     private ActionListener Debugging = new ActionListener() {
@@ -134,8 +134,15 @@ public class GameplayInputAppState extends AbstractAppState {
                     } else {
                         playerMove.setZ(0f);
                     }
-                }
-                 else if (name.equals(Mapping.RETURN)) {
+                } else if (name.equals(Mapping.RETURN)) {
+                    if (playerControl.getListOfPlayerOptions() != null
+                            && !playerControl.getListOfPlayerOptions().isEmpty()) {
+                       
+                        String mostRecentOption = playerControl.getListOfPlayerOptions()
+                                .get(playerControl.getListOfPlayerOptions().size() - 1);
+                        System.out.print("PLAYER OPTION = " + mostRecentOption + "\n");
+
+                    }
 
                 }
 

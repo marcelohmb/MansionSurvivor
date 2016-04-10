@@ -6,6 +6,7 @@ package mygame.appstates;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.export.Savable;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import mygame.javaclasses.ConstructionAssets;
