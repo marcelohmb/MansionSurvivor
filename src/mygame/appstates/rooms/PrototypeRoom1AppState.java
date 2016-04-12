@@ -68,14 +68,14 @@ public class PrototypeRoom1AppState extends RoomAppState {
         this.mansionEntranceAppState = stateManager.getState(MansionEntranceAppState.class);
 
         floor = createGameFloor(assetManager, new Vector3f(0f, 0f, 10f));
-        nodes.getRootNode().attachChild(nodes.getEnemyNode().getChild(Constants.UserData.FRANKESTEIN));
+        //nodes.getRootNode().attachChild(nodes.getEnemyNode().getChild(Constants.UserData.FRANKESTEIN));
 
 
         DoorOrientation doorOrientation = new DoorOrientation(DoorType.OUTDOOR, Direction.HORIZONTAL);
         boolean doubleDoor = true;
 
         // Left door
-        mansionEntranceDoor = new Door(constructionAssets, ENTRANCE_DOOR_POS, Direction.HORIZONTAL, doubleDoor);
+        mansionEntranceDoor = new Door(constructionAssets, ENTRANCE_DOOR_POS, Direction.HORIZONTAL, nodes.getDoorsNode(), doubleDoor);
         Geometry entranceDoorGeometry = mansionEntranceDoor.getPrototypeGeometry().getGeometry();
       
         entranceDoorControl = new DoorControl(entranceDoorGeometry, Doors.COUNTRYARD_TO_ENTRANCE,

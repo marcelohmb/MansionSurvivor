@@ -28,6 +28,7 @@ public class ChangeRoomAppState extends AbstractAppState {
 
     private Node playerNode;
     private Node rootNode;
+    private Node doorsNode;
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
@@ -35,6 +36,7 @@ public class ChangeRoomAppState extends AbstractAppState {
         NodesAppState nodesAppState = stateManager.getState(NodesAppState.class);
         this.rootNode = nodesAppState.getRootNode();
         this.playerNode = nodesAppState.getPlayerNode();
+        this.doorsNode = nodesAppState.getDoorsNode();
     }
 
     /**
@@ -57,12 +59,22 @@ public class ChangeRoomAppState extends AbstractAppState {
     }
 
     public DoorControl getDoorControlWithName(String name) {
+        
+        for(Spatial child: this.doorsNode.getChildren()){
+            if(child.getName().equals(name)){
+                return child.getControl(DoorControl.class);
+            }
+        }
+        
+        
         for (Spatial child : this.rootNode.getChildren()) {
             if (child.getName().equals(name)) {
                 return child.getControl(DoorControl.class);
             }
         }
+        
         return null;
+      
     }
 
     private DoorControl getDoorPlayerIsUsing() {

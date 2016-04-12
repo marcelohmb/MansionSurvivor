@@ -46,7 +46,7 @@ public class MansionEntranceAppState extends RoomAppState {
         
         boolean doubleDoor = true;
         countryardDoor = new Door(constructionAssets, COUNTRYARD_DOOR_POS,
-                countryardDoorOrientation.getDoorDirection(), doubleDoor);
+                countryardDoorOrientation.getDoorDirection(), nodes.getDoorsNode() , doubleDoor);
         Geometry countryardDoorGeometry = countryardDoor.getPrototypeGeometry().getGeometry();
 
         

@@ -21,11 +21,13 @@ public class NodesAppState extends AbstractAppState {
     private Node enemyNode;
     private Node rootNode;
     private Node guiNode;
+    private Node doorsNode;
 
     // Initialize all exclusive ndoes
     public NodesAppState() {
         playerNode = new Node(Constants.UserData.PLAYER_NODE);
         enemyNode = new Node(Constants.UserData.ENEMY_NODE);
+        doorsNode = new Node(Constants.UserData.DOORS_NODE);
     }
 
     @Override
@@ -53,4 +55,7 @@ public class NodesAppState extends AbstractAppState {
         return enemyNode;
     }
 
+    public Node getDoorsNode(){
+        return doorsNode;
+    }
 }
