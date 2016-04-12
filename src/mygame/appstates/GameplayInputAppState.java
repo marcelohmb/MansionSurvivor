@@ -138,40 +138,37 @@ public class GameplayInputAppState extends AbstractAppState {
                 } else if (name.equals(Mapping.RETURN)) {
                     if (playerControl.getListOfPlayerOptions() != null
                             && !playerControl.getListOfPlayerOptions().isEmpty()) {
-                        
-                        System.out.print("I receive some call for return...");
+
+                        System.out.print(playerControl.getListOfPlayerOptions()); // DEBUG
 
                         String mostRecentOption = playerControl.getListOfPlayerOptions()
                                 .get(playerControl.getListOfPlayerOptions().size() - 1);
 
                         if (mostRecentOption.equals(PlayerOptions.OPEN_DOOR)) {
-                            System.out.println("and open dor was the option");
                             changeRoomAppState.changeRoom();
                             playerControl.getListOfPlayerOptions()
                                     .remove(playerControl.getListOfPlayerOptions().size() - 1);
-                        }
-                        else{
-                            
-                            System.out.println("but nothing was in the list");
                         }
 
                     }
 
                 }
 
+                playerControl.setWalkDirection(playerMove);
+
+                if (!playerControl.getWalkDirection().equals(Vector3f.ZERO)) {
+                    playerPhysics.setViewDirection(playerControl.getWalkDirection());
+                }
+
+                playerPhysics.setWalkDirection(playerControl.getWalkDirection());
             }
-
-            playerControl.setWalkDirection(playerMove);
-
-            if (!playerControl.getWalkDirection().equals(Vector3f.ZERO)) {
-                playerPhysics.setViewDirection(playerControl.getWalkDirection());
-            }
-
-            playerPhysics.setWalkDirection(playerControl.getWalkDirection());
         }
     };
+    
+
+        
 
     @Override
-    public void update(float tpf) {
+        public void update(float tpf) {
+        }
     }
-}

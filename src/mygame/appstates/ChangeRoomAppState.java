@@ -46,7 +46,6 @@ public class ChangeRoomAppState extends AbstractAppState {
             RoomAppState currentRoom = playerUsingDoor.getDoorRoomAppState();
             DoorControl symetricDoorControl = getDoorControlWithName(playerUsingDoor.getSymetricDoorName());
             RoomAppState nextRoom = symetricDoorControl.getDoorRoomAppState();
-            playerUsingDoor.setEnabled(false);
             currentRoom.setEnabled(false);
             rootNode.detachChild(playerNode);
             nextRoom.setEnabled(true);
