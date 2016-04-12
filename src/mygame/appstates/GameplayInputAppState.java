@@ -138,14 +138,21 @@ public class GameplayInputAppState extends AbstractAppState {
                 } else if (name.equals(Mapping.RETURN)) {
                     if (playerControl.getListOfPlayerOptions() != null
                             && !playerControl.getListOfPlayerOptions().isEmpty()) {
+                        
+                        System.out.print("I receive some call for return...");
 
                         String mostRecentOption = playerControl.getListOfPlayerOptions()
                                 .get(playerControl.getListOfPlayerOptions().size() - 1);
 
                         if (mostRecentOption.equals(PlayerOptions.OPEN_DOOR)) {
+                            System.out.println("and open dor was the option");
                             changeRoomAppState.changeRoom();
                             playerControl.getListOfPlayerOptions()
                                     .remove(playerControl.getListOfPlayerOptions().size() - 1);
+                        }
+                        else{
+                            
+                            System.out.println("but nothing was in the list");
                         }
 
                     }

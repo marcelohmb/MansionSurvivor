@@ -13,6 +13,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
+import mygame.appstates.NodesAppState;
 import mygame.appstates.RoomAppState;
 import mygame.javaclasses.Constants.UserData;
 import mygame.enumerations.Direction;
@@ -29,7 +30,7 @@ public class DoorControl extends AbstractControl {
     /**
      * Max distance to be able to enter in the door
      */
-    public static final float MAX_DISTANCE = 2f;
+    public static final float MAX_DISTANCE = 3f;
     /**
      * Store the results of collision of the ray
      */
@@ -53,6 +54,13 @@ public class DoorControl extends AbstractControl {
      */
     public void setPlayerUsingDoor(boolean playerUsing) {
         spatial.setUserData(UserData.PLAYER_USING_DOOR, playerUsing);
+    }
+
+    /**
+     * Points to the direction that the door is looking for the player
+     */
+    public Vector3f getRayDirection() {
+        return rayDirection;
     }
 
     /**
@@ -83,15 +91,22 @@ public class DoorControl extends AbstractControl {
     public DoorOrientation getDoorOrienation() {
         return spatial.getUserData(UserData.DOOR_ORIENTATION);
     }
-    
-    private void setSymetricDoor(DoorControl door){
-        spatial.setUserData(UserData.SYMETRIC_DOOR, door);
+
+    private void setDoorName(String name) {
+        spatial.setUserData(UserData.NAME, name);
     }
-    
-    public DoorControl getSymetricDoor(){
-        return spatial.getUserData(UserData.SYMETRIC_DOOR);
+
+    public String getDoorName() {
+        return spatial.getUserData(UserData.NAME);
     }
-    
+
+    private void setSymetricDoorName(String name) {
+        spatial.setUserData(UserData.SYMETRIC_DOOR_NAME, name);
+    }
+
+    public String getSymetricDoorName() {
+        return spatial.getUserData(UserData.SYMETRIC_DOOR_NAME);
+    }
 
     /**
      * Create a door control
@@ -102,18 +117,19 @@ public class DoorControl extends AbstractControl {
      * launched
      * @param playerNode receive a reference of the player node in order to
      * check the player pos
-
-     */    
-    public DoorControl(Geometry door, RoomAppState doorRoom, DoorControl symetricDoor,
-            DoorOrientation orientation, Node playerNode) {
+     *
+     */
+    public DoorControl(Geometry door, String doorName, String symetricDoorName, RoomAppState doorRoom,
+            DoorOrientation orientation, NodesAppState nodes) {
         this.spatial = door;
+        this.spatial.setName(doorName);
         collisionResults = new CollisionResults();
         DoorOrientation doorOrientation = new DoorOrientation(orientation);
         setDoorOrienation(doorOrientation);
         setPlayerUsingDoor(false);
-        setSymetricDoor(symetricDoor);
+        setSymetricDoorName(symetricDoorName);
         setDoorRoomAppState(doorRoom);
-        this.playerNode = playerNode;
+        this.playerNode = nodes.getPlayerNode();
         rayDirection = new Vector3f();
 
         if (doorOrientation.getDoorDirection() == Direction.HORIZONTAL) {
@@ -132,9 +148,8 @@ public class DoorControl extends AbstractControl {
         }
 
     }
-
     Integer test = null;
-    
+
     @Override
     protected void controlUpdate(float tpf) {
         if (enabled) {
@@ -142,11 +157,24 @@ public class DoorControl extends AbstractControl {
             playerNode.collideWith(ray, collisionResults);
             if (collisionResults.getClosestCollision() != null) {
                 if (collisionResults.getClosestCollision().getDistance() <= MAX_DISTANCE) {
-                    setPlayerUsingDoor(true);
-                    playerNode.getChild(UserData.PLAYER).getControl(PlayerControl.class).getListOfPlayerOptions()
-                            .add(PlayerOptions.OPEN_DOOR);
+                    if (!isPlayerUsingDoor()) {
+                        setPlayerUsingDoor(true);
+                        playerNode.getChild(UserData.PLAYER).getControl(PlayerControl.class).getListOfPlayerOptions()
+                                .add(PlayerOptions.OPEN_DOOR);
+                    }
                 }
             }
+
+            if (isPlayerUsingDoor()) {
+                if (collisionResults.getClosestCollision() == null
+                        || collisionResults.getClosestCollision().getDistance() > MAX_DISTANCE) {
+                    setPlayerUsingDoor(false);
+                    playerNode.getChild(UserData.PLAYER).getControl(PlayerControl.class).getListOfPlayerOptions()
+                            .remove(PlayerOptions.OPEN_DOOR);
+                }
+            }
+
+
             collisionResults.clear();
         }
     }

@@ -36,7 +36,8 @@ public final class Constants {
         public static final String CORRESPONDENT_DOOR = "correspondentDoor";
         public static final String PLAYER_USING_DOOR = "playerUsingDoor";
         public static final String DOOR_ORIENTATION = "doorOrientation";
-        public static final String SYMETRIC_DOOR = "symetricDoor";
+        public static final String NAME = "name";
+        public static final String SYMETRIC_DOOR_NAME = "symetricDoorName";
     }
 
     public static final class Mapping {
@@ -48,18 +49,38 @@ public final class Constants {
         public static final String RETURN = "return";
     }
 
+    public static final class Doors {
+
+        public static final String COUNTRYARD_TO_ENTRANCE = "countryardToEntrance";
+        public static final String ENTRANCE_TO_COUNTRYARD = "entranceToCountryard";
+        public static final String ENTRANCE_TO_CORRIDOR = "entranceToCorridor";
+        public static final String CORRIDOR_TO_ENTRANCE = "corridorToEntrance";
+        public static final String CORRIDOR_TO_OFFICE = "corridorToOffice";
+        public static final String OFFICE_TO_CORRIDOR = "officeToCorridor";
+        public static final String CORRIDOR_TO_CAGES = "corridorToCages";
+        public static final String CAGES_TO_CORRIDOR = "cagesToCorridor";
+        public static final String CORRIDOR_TO_MAINTENANCE = "corridorToMaintenance";
+        public static final String MAINTENANCE_TO_CORRIDOR = "maintenanceToCorridor";
+        public static final String CORRIDOR_TO_GENERATOR = "corridorToGenerator";
+        public static final String GENERATOR_TO_CORRIDOR = "generatorToCorridor";
+
+
+
+    }
+
     /**
      * Constants that are important outside of the method where they are
      */
     public static final class GlobalValues {
-
     }
-    
-    public static final class PlayerActions{
+
+    public static final class PlayerActions {
+
         public static final String OPEN_DOOR = "openDoor";
     }
-    
-    public static final class PlayerOptions{
+
+    public static final class PlayerOptions {
+
         public static final String OPEN_DOOR = "openDoor";
     }
 }

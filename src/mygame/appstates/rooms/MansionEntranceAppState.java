@@ -12,7 +12,7 @@ import mygame.appstates.RoomAppState;
 import mygame.controls.DoorControl;
 import mygame.enumerations.Direction;
 import mygame.enumerations.DoorType;
-import mygame.javaclasses.Constants;
+import mygame.javaclasses.Constants.Doors;
 import mygame.javaclasses.Door;
 import mygame.javaclasses.DoorOrientation;
 
@@ -48,12 +48,10 @@ public class MansionEntranceAppState extends RoomAppState {
         countryardDoor = new Door(constructionAssets, COUNTRYARD_DOOR_POS,
                 countryardDoorOrientation.getDoorDirection(), doubleDoor);
         Geometry countryardDoorGeometry = countryardDoor.getPrototypeGeometry().getGeometry();
+
         
-        DoorControl countryardSymetricDoor =
-                stateManager.getState(PrototypeRoom1AppState.class).getEntranceDoorControl();
-        
-        countryardDoorControl = new DoorControl(countryardDoorGeometry,
-                this, countryardSymetricDoor ,countryardDoorOrientation, nodes.getPlayerNode());
+        countryardDoorControl = new DoorControl(countryardDoorGeometry, Doors.ENTRANCE_TO_COUNTRYARD,
+                Doors.COUNTRYARD_TO_ENTRANCE, this ,countryardDoorOrientation, nodes);
         countryardDoorGeometry.addControl(countryardDoorControl);
 
         setEnabled(true);

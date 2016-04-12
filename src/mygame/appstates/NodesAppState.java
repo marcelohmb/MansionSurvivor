@@ -52,4 +52,5 @@ public class NodesAppState extends AbstractAppState {
     public Node getEnemyNode() {
         return enemyNode;
     }
+
 }

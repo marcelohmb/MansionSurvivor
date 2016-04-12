@@ -7,12 +7,13 @@ package mygame.appstates;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.Spatial;
+import com.jme3.math.Vector3f;
 import mygame.controls.DoorControl;
+import mygame.controls.PlayerControl;
 import mygame.enumerations.Direction;
 import mygame.enumerations.DoorType;
 import mygame.javaclasses.Constants;
@@ -25,8 +26,8 @@ import mygame.javaclasses.DoorOrientation;
  */
 public class ChangeRoomAppState extends AbstractAppState {
 
-    private Node rootNode;
     private Node playerNode;
+    private Node rootNode;
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
@@ -40,22 +41,30 @@ public class ChangeRoomAppState extends AbstractAppState {
      * Change the room based in the door that player is using
      */
     public void changeRoom() {
-        DoorControl playerUsingDoor = getDoorPlayerIsUsing();
-        RoomAppState currentRoom = playerUsingDoor.getDoorRoomAppState();
-        RoomAppState nextRoom = playerUsingDoor.getSymetricDoor().getDoorRoomAppState();
-        
-        playerUsingDoor.setEnabled(false);
-        
-        currentRoom.setEnabled(false);
-        rootNode.detachChild(playerNode);
-        nextRoom.setEnabled(true);
-        rootNode.attachChild(playerNode);
-       
-        
+            DoorControl playerUsingDoor = getDoorPlayerIsUsing();
+            playerUsingDoor.setPlayerUsingDoor(false);
+            RoomAppState currentRoom = playerUsingDoor.getDoorRoomAppState();
+            DoorControl symetricDoorControl = getDoorControlWithName(playerUsingDoor.getSymetricDoorName());
+            RoomAppState nextRoom = symetricDoorControl.getDoorRoomAppState();
+            playerUsingDoor.setEnabled(false);
+            currentRoom.setEnabled(false);
+            rootNode.detachChild(playerNode);
+            nextRoom.setEnabled(true);
+            Vector3f playerPosition = symetricDoorControl.getSpatial().getLocalTranslation()
+                    .add(symetricDoorControl.getRayDirection());
+            playerNode.getChild(UserData.PLAYER).getControl(PlayerControl.class)
+                    .setPosition(playerPosition);
+            rootNode.attachChild(playerNode);
     }
-    
-  
-    
+
+    public DoorControl getDoorControlWithName(String name) {
+        for (Spatial child : this.rootNode.getChildren()) {
+            if (child.getName().equals(name)) {
+                return child.getControl(DoorControl.class);
+            }
+        }
+        return null;
+    }
 
     private DoorControl getDoorPlayerIsUsing() {
         for (Spatial child : this.rootNode.getChildren()) {
@@ -67,7 +76,6 @@ public class ChangeRoomAppState extends AbstractAppState {
         }
         return null;
     }
-
 
     @Override
     public void update(float tpf) {
