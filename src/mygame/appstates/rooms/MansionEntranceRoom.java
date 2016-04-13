@@ -8,7 +8,6 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
-import mygame.appstates.RoomAppState;
 import mygame.controls.DoorControl;
 import mygame.enumerations.Direction;
 import mygame.enumerations.DoorType;
@@ -20,7 +19,7 @@ import mygame.javaclasses.DoorOrientation;
  *
  * @author GAMEOVER
  */
-public class MansionEntranceAppState extends RoomAppState {
+public class MansionEntranceRoom extends RoomAppState {
 
     private static final float DEFAULT_WIDTH = 36f;
     private static final float DEFAULT_HEIGHT = 20f;
@@ -34,7 +33,7 @@ public class MansionEntranceAppState extends RoomAppState {
         return countryardDoorControl;
     }
 
-    public MansionEntranceAppState() {
+    public MansionEntranceRoom() {
         super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_POSITION);
     }
 

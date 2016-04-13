@@ -4,7 +4,7 @@
  */
 package mygame.appstates.rooms;
 
-import mygame.appstates.rooms.MansionEntranceAppState;
+import mygame.appstates.rooms.MansionEntranceRoom;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -13,8 +13,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
-import mygame.appstates.RoomAppState;
-import mygame.appstates.rooms.MainCorridorAppState;
+import mygame.appstates.rooms.MainCorridorRoom;
 import mygame.controls.DoorControl;
 import mygame.javaclasses.Constants;
 import mygame.enumerations.Direction;
@@ -27,14 +26,14 @@ import mygame.javaclasses.Constants.Doors;
  *
  * @author GAMEOVER
  */
-public class PrototypeRoom1AppState extends RoomAppState {
+public class Prototype1Room extends RoomAppState {
 
     public static final Vector3f ENTRANCE_DOOR_POS = new Vector3f(9f, 0f, 0.1f);
     protected Door mansionEntranceDoor;
     protected DoorControl entranceDoorControl;
     protected Geometry floor;
     protected RigidBodyControl floorPhysics;
-    MansionEntranceAppState mansionEntranceAppState;
+    MansionEntranceRoom mansionEntranceAppState;
 
     public Geometry getDoor() {
         return mansionEntranceDoor.getPrototypeGeometry().getGeometry();
@@ -44,7 +43,7 @@ public class PrototypeRoom1AppState extends RoomAppState {
         return entranceDoorControl;
     }
 
-    public PrototypeRoom1AppState() {
+    public Prototype1Room() {
         super(0f, 0f, 0f, Vector3f.ZERO); // Outdoor measures
     }
 
@@ -65,7 +64,7 @@ public class PrototypeRoom1AppState extends RoomAppState {
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-        this.mansionEntranceAppState = stateManager.getState(MansionEntranceAppState.class);
+        this.mansionEntranceAppState = stateManager.getState(MansionEntranceRoom.class);
 
         floor = createGameFloor(assetManager, new Vector3f(0f, 0f, 10f));
         //nodes.getRootNode().attachChild(nodes.getEnemyNode().getChild(Constants.UserData.FRANKESTEIN));

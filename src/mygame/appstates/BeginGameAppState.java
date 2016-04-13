@@ -4,12 +4,12 @@
  */
 package mygame.appstates;
 
-import mygame.appstates.rooms.PrototypeRoom1AppState;
+import mygame.appstates.rooms.Prototype1Room;
 import mygame.appstates.rooms.MaintenanceRoom;
-import mygame.appstates.rooms.MainCorridorAppState;
-import mygame.appstates.rooms.OfficeAppState;
-import mygame.appstates.rooms.MansionEntranceAppState;
-import mygame.appstates.rooms.PowerGeneratorRoomAppState;
+import mygame.appstates.rooms.MainCorridorRoom;
+import mygame.appstates.rooms.OfficeRoom;
+import mygame.appstates.rooms.MansionEntranceRoom;
+import mygame.appstates.rooms.PowerGeneratorRoom;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -19,7 +19,7 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import mygame.appstates.rooms.AnimalCagesAppState;
+import mygame.appstates.rooms.AnimalCagesRoom;
 import mygame.controls.DoorControl;
 import mygame.controls.PlayerControl;
 import mygame.javaclasses.Constants.UserData;
@@ -31,7 +31,7 @@ import mygame.tests.LightForAllEnvironment;
  */
 public class BeginGameAppState extends AbstractAppState {
 
-    PrototypeRoom1AppState prototypeRoom1AppState;
+    Prototype1Room prototypeRoom1AppState;
     NodesAppState nodesAppState;
     CharactersAppState charactersAppState;
     AppStateManager stateManager;
@@ -39,9 +39,15 @@ public class BeginGameAppState extends AbstractAppState {
     CameraAppState cameraAppState;
     AssetManager assetManager;
     BulletAppState bulletAppState;
+    MansionEntranceRoom mansionEntranceAppState;
+    LightForAllEnvironment lightForAllEnvironment;
+    ChangeRoomAppState changeRoomAppState;
+    MainCorridorRoom mainCorridorAppState;
+    OfficeRoom officeAppState;
+    AnimalCagesRoom animalCagesAppState;
+    MaintenanceRoom maintenanceRoom;
+    PowerGeneratorRoom powerGeneratorRoomAppState;
 
-    public BeginGameAppState() {
-    }
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
@@ -62,46 +68,35 @@ public class BeginGameAppState extends AbstractAppState {
         cameraAppState = new CameraAppState();
         this.stateManager.attach(cameraAppState);
 
-        prototypeRoom1AppState = new PrototypeRoom1AppState();
+        prototypeRoom1AppState = new Prototype1Room();
         this.stateManager.attach(prototypeRoom1AppState);
 
-        MansionEntranceAppState mansionEntranceAppState = new MansionEntranceAppState();
+        mansionEntranceAppState = new MansionEntranceRoom();
         this.stateManager.attach(mansionEntranceAppState);
 
-        LightForAllEnvironment lightForAllEnvironment = new LightForAllEnvironment();
+        lightForAllEnvironment = new LightForAllEnvironment();
         this.stateManager.attach(lightForAllEnvironment);
         
-        ChangeRoomAppState changeRoomAppState = new ChangeRoomAppState();
+        changeRoomAppState = new ChangeRoomAppState();
         this.stateManager.attach(changeRoomAppState);
         
         gameplayInputAppState = new GameplayInputAppState();
         this.stateManager.attach(gameplayInputAppState);
 
-        MainCorridorAppState mainCorridorAppState = new MainCorridorAppState();
+        mainCorridorAppState = new MainCorridorRoom();
         this.stateManager.attach(mainCorridorAppState);
 
-        OfficeAppState officeAppState = new OfficeAppState();
+        officeAppState = new OfficeRoom();
         this.stateManager.attach(officeAppState);
 
-        AnimalCagesAppState animalCagesAppState = new AnimalCagesAppState();
+        animalCagesAppState = new AnimalCagesRoom();
         this.stateManager.attach(animalCagesAppState);
 
-        MaintenanceRoom maintenanceRoom = new MaintenanceRoom();
+        maintenanceRoom = new MaintenanceRoom();
         this.stateManager.attach(maintenanceRoom);
 
-        PowerGeneratorRoomAppState powerGeneratorRoomAppState = new PowerGeneratorRoomAppState();
+        powerGeneratorRoomAppState = new PowerGeneratorRoom();
         this.stateManager.attach(powerGeneratorRoomAppState);
-
-
-
-
-
     }
 
-    public void loadScenarios() {
-    }
-
-    @Override
-    public void update(float tpf) {
-    }
 }

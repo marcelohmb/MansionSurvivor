@@ -14,7 +14,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import mygame.appstates.NodesAppState;
-import mygame.appstates.RoomAppState;
+import mygame.appstates.rooms.RoomAppState;
 import mygame.javaclasses.Constants.UserData;
 import mygame.enumerations.Direction;
 import mygame.enumerations.DoorType;

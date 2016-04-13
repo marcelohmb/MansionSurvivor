@@ -7,22 +7,21 @@ package mygame.appstates.rooms;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Vector3f;
-import mygame.appstates.RoomAppState;
 
 /**
  *
  * @author GAMEOVER
  */
-public class OfficeAppState extends RoomAppState {
+public class PowerGeneratorRoom extends RoomAppState {
 
     public static final float DEFAULT_WIDTH = 36f;
     public static final float DEFAULT_HEIGHT = 20f;
     public static final float DEFAULT_SIZE = 18f;
-    public static final Vector3f DEFAULT_POSITION = MainCorridorAppState.DEFAULT_LOCATION
-            .add(new Vector3f(-DEFAULT_WIDTH, 0f, 0f));
+    public static final Vector3f DEFAULT_POSITION = MaintenanceRoom.DEFAULT_POSITION
+            .add(0f, 0f, -MaintenanceRoom.DEFAULT_SIZE);
     public static final Vector3f DEFAULT_PLAYER_POSITION = Vector3f.ZERO;
 
-    public OfficeAppState() {
+    public PowerGeneratorRoom() {
         super(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SIZE, DEFAULT_POSITION);
     }
 

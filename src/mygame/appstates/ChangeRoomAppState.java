@@ -4,6 +4,7 @@
  */
 package mygame.appstates;
 
+import mygame.appstates.rooms.RoomAppState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
