@@ -4,6 +4,7 @@
  */
 package mygame.appstates.rooms;
 
+import mygame.appstates.util.RoomAppState;
 import mygame.appstates.rooms.MansionEntranceRoom;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
@@ -34,10 +35,6 @@ public class Prototype1Room extends RoomAppState {
     protected Geometry floor;
     protected RigidBodyControl floorPhysics;
     MansionEntranceRoom mansionEntranceAppState;
-
-    public Geometry getDoor() {
-        return mansionEntranceDoor.getPrototypeGeometry().getGeometry();
-    }
 
     public DoorControl getEntranceDoorControl() {
         return entranceDoorControl;

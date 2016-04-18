@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mygame.appstates;
+package mygame.appstates.util;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
@@ -23,6 +23,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import java.io.IOException;
+import mygame.appstates.NodesAppState;
 import mygame.controls.DoorControl;
 import mygame.enumerations.Direction;
 import mygame.javaclasses.Constants;
@@ -42,9 +43,6 @@ public class ScenarioAppState extends AbstractAppState implements Savable {
     protected static AssetManager assetManager;
     protected static Spatial player;
     protected static ConstructionAssets constructionAssets;
-
-    public ScenarioAppState() {
-    }
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {

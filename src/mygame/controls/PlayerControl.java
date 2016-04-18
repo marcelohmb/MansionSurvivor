@@ -43,20 +43,8 @@ public class PlayerControl extends AbstractControl {
         spatial.setLocalTranslation(pos);
         spatial.getControl(BetterCharacterControl.class).setEnabled(true);
     }
-    
-    public Vector3f getPosition(Vector3f pos){
-       return spatial.getLocalTranslation();
-    }
-    
-    public List<String> getListOfPlayerActions(){
-        return spatial.getUserData(UserData.PLAYER_ACTIONS);
-    }
-    
-    private void setListOfPlayerActions(MyArrayList<String> playerActions ){
-        spatial.setUserData(UserData.PLAYER_ACTIONS, playerActions);
-    }
-    
-    public List<String> getListOfPlayerOptions(){
+
+    public MyArrayList<String> getListOfPlayerOptions(){
         return spatial.getUserData(UserData.PLAYER_OPTIONS);
     }
     
@@ -71,15 +59,15 @@ public class PlayerControl extends AbstractControl {
         setSpeed(DEFAULT_SPEED);
         setWalkDirection(new Vector3f(-1f,0,-1f));
         setListOfPlayeOptions(new MyArrayList<String>());
-        setListOfPlayerActions(new MyArrayList<String>());
     }
 
     @Override
     protected void controlUpdate(float tpf) {
-        //System.out.println("PLAYER POSITION = " + spatial.getLocalTranslation());
     }
 
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
     }
+
+
 }

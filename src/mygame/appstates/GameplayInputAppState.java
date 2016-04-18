@@ -36,9 +36,9 @@ public class GameplayInputAppState extends AbstractAppState {
      */
     private Node playerNode;
     /**
-     * Give access to the cental app
+     * Give access to the cental simpleApp
      */
-    private SimpleApplication app;
+    private SimpleApplication simpleApp;
     /**
      * The player 3d model
      */
@@ -61,21 +61,21 @@ public class GameplayInputAppState extends AbstractAppState {
      */
     private FlyByCamera flyCam;
     /**
-     * This app state can be used in a door open player action
+     * This simpleApp state can be used in a door open player action
      */
     private ChangeRoomAppState changeRoomAppState;
     /**
      * List of player options that affect input check's
      */
-    MyArrayList<String> playerOptions;
+    private MyArrayList<String> playerOptions;
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
 
         // Receive and set valeus
         super.initialize(stateManager, app);
-        this.app = (SimpleApplication) app;
-        playerNode = (Node) this.app.getRootNode().getChild(UserData.PLAYER_NODE);
+        this.simpleApp = (SimpleApplication) app;
+        playerNode = (Node) this.simpleApp.getRootNode().getChild(UserData.PLAYER_NODE);
         player = playerNode.getChild(UserData.PLAYER);
         playerPhysics = player.getControl(BetterCharacterControl.class);
         playerControl = player.getControl(PlayerControl.class);
@@ -95,19 +95,19 @@ public class GameplayInputAppState extends AbstractAppState {
         inputManager.addMapping(Mapping.RETURN, new KeyTrigger(KeyInput.KEY_RETURN));
 
         // Add listeners here
-        inputManager.addListener(Movement, Mapping.UP, Mapping.DOWN, Mapping.LEFT, Mapping.RIGHT,
+        inputManager.addListener(movement, Mapping.UP, Mapping.DOWN, Mapping.LEFT, Mapping.RIGHT,
                 Mapping.RETURN);
 
 
     }
-    private ActionListener Debugging = new ActionListener() {
+    private ActionListener debugging = new ActionListener() {
         public void onAction(String name, boolean isPressed, float tpf) {
             if (isEnabled()) {
                 // Put verification's of debug input here
             }
         }
     };
-    private ActionListener Movement = new ActionListener() {
+    private ActionListener movement = new ActionListener() {
         public void onAction(String name, boolean isPressed, float tpf) {
 
             if (isEnabled()) {
@@ -164,11 +164,8 @@ public class GameplayInputAppState extends AbstractAppState {
             }
         }
     };
-    
-
-        
 
     @Override
-        public void update(float tpf) {
-        }
+    public void update(float tpf) {
     }
+}

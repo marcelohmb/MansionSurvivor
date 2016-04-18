@@ -39,12 +39,12 @@ public class SimpleChaseControl extends AbstractControl {
         return spatial.getUserData(Constants.UserData.MEASURES);
     }
 
-    public void setPlayerControl(PlayerControl player) {
-        spatial.setUserData("PlayerControl", player);
+    private void setPlayerControl(PlayerControl player) {
+        spatial.setUserData(Constants.UserData.PLAYER_CONTROL, player);
     }
 
     private PlayerControl getPlayerControl() {
-        return spatial.getUserData("PlayerControl");
+        return spatial.getUserData(Constants.UserData.PLAYER_CONTROL);
     }
 
     public void setSpeed(float speed) {

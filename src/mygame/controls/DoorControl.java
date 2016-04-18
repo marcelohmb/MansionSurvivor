@@ -14,7 +14,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import mygame.appstates.NodesAppState;
-import mygame.appstates.rooms.RoomAppState;
+import mygame.appstates.util.RoomAppState;
 import mygame.javaclasses.Constants.UserData;
 import mygame.enumerations.Direction;
 import mygame.enumerations.DoorType;
@@ -92,13 +92,6 @@ public class DoorControl extends AbstractControl {
         return spatial.getUserData(UserData.DOOR_ORIENTATION);
     }
 
-    private void setDoorName(String name) {
-        spatial.setUserData(UserData.NAME, name);
-    }
-
-    public String getDoorName() {
-        return spatial.getUserData(UserData.NAME);
-    }
 
     private void setSymetricDoorName(String name) {
         spatial.setUserData(UserData.SYMETRIC_DOOR_NAME, name);

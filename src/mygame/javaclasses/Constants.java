@@ -4,7 +4,7 @@
  */
 package mygame.javaclasses;
 
-import mygame.appstates.ScenarioAppState;
+import mygame.appstates.util.ScenarioAppState;
 
 /**
  *
@@ -38,6 +38,7 @@ public final class Constants {
         public static final String DOOR_ORIENTATION = "doorOrientation";
         public static final String NAME = "name";
         public static final String SYMETRIC_DOOR_NAME = "symetricDoorName";
+        public static final String PLAYER_CONTROL = "playerControl";
     }
 
     public static final class Mapping {
@@ -63,20 +64,6 @@ public final class Constants {
         public static final String MAINTENANCE_TO_CORRIDOR = "maintenanceToCorridor";
         public static final String CORRIDOR_TO_GENERATOR = "corridorToGenerator";
         public static final String GENERATOR_TO_CORRIDOR = "generatorToCorridor";
-
-
-
-    }
-
-    /**
-     * Constants that are important outside of the method where they are
-     */
-    public static final class GlobalValues {
-    }
-
-    public static final class PlayerActions {
-
-        public static final String OPEN_DOOR = "openDoor";
     }
 
     public static final class PlayerOptions {

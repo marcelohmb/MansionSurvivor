@@ -20,9 +20,6 @@ import mygame.javaclasses.Constants.UserData;
 public class Room implements IEnable{
 
     private Wall bottomWall, topWall, leftWall, rightWall;
-    private AssetManager assetManager;
-    private BulletAppState bulletAppState;
-    private Node rootNode;
     private Node room;
     private boolean enabled;
 
@@ -32,10 +29,6 @@ public class Room implements IEnable{
 
     public Room(ConstructionAssets constructionAssets,
             float width, float height, float size, Vector3f leftExtreme) {
-
-        assetManager = constructionAssets.getAssetManager();
-        bulletAppState = constructionAssets.getBulletAppState();
-        rootNode = rootNode = constructionAssets.getRootNode();
 
         bottomWall = new Wall(constructionAssets, width, height, leftExtreme,
                 Direction.HORIZONTAL);

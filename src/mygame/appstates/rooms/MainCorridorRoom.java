@@ -4,6 +4,7 @@
  */
 package mygame.appstates.rooms;
 
+import mygame.appstates.util.RoomAppState;
 import mygame.appstates.rooms.MansionEntranceRoom;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
@@ -21,7 +22,6 @@ public class MainCorridorRoom extends RoomAppState {
     public static final float DEFAULT_SIZE = 36f;
     public static final Vector3f DEFAULT_LOCATION = MansionEntranceRoom.DEFAULT_POSITION
             .add(new Vector3f(9f, 0f, -DEFAULT_SIZE / 2f));
-    public static final Vector3f DEFAULT_PLAYER_LOCATION = Vector3f.ZERO;
 
     
     public MainCorridorRoom() {
